@@ -26,5 +26,7 @@ class ServiceProvider extends BaseServiceProvider
     public function boot()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/api.php', 'twill.api');
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
     }
 }
