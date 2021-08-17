@@ -1,6 +1,6 @@
 <?php
 
-namespace A17\Twill\API\Tests\Unit;
+namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 

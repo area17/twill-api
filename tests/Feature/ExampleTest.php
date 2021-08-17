@@ -1,8 +1,8 @@
 <?php
 
-namespace A17\Twill\API\Tests\Feature;
+namespace Tests\Feature;
 
-use A17\Twill\API\Tests\TestCase;
+use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
@@ -21,13 +21,25 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
+    public function test_a_basic_request()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
     public function test_api_version_route()
     {
         $versionPrefix = config('twill.api.version');
 
         $response = $this->get("/api/$versionPrefix");
 
-        $response->assertJson([]);
+        $response->assertJson([ 'data' => [] ]);
 
         $response->assertStatus(200);
     }

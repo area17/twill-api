@@ -1,15 +1,15 @@
 <?php
 
-namespace A17\Twill\API\Tests;
+namespace Tests;
 
-use A17\Twill\API\ServiceProvider;
-use A17\Twill\TwillServiceProvider;
 use A17\Twill\Models\User;
 use Faker\Factory as Faker;
-use Orchestra\Testbench\TestCase as Orchestra;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-abstract class TestCase extends Orchestra
+abstract class TestCase extends BaseTestCase
 {
+    use CreatesApplication;
+
     const DEFAULT_LOCALE = 'en_US';
     const DEFAULT_PASSWORD = 'secret';
 
@@ -36,18 +36,6 @@ abstract class TestCase extends Orchestra
         $this->setUpTwill();
 
         $this->withoutExceptionHandling();
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [
-            TwillServiceProvider::class,
-            ServiceProvider::class,
-        ];
-    }
-
-    public function getEnvironmentSetUp($app)
-    {
     }
 
     protected function setUpTwill()
