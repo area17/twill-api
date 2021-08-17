@@ -10243,7 +10243,7 @@
         },
         {
             "name": "skeleton/skeleton",
-            "version": "dev-skeleton",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./skeleton",
