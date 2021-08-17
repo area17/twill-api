@@ -4,13 +4,23 @@
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "..",
+            "options": {
+                "symlink": true
+            }
+        }
+      ],
     "require": {
         "php": "^7.3|^8.0",
         "area17/twill": "^2.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.54",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "area17/twill-api": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
