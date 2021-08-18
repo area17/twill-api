@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use A17\Twill\API\Http\Resources\ModuleCollection;
 
-class BookCollection extends ModuleCollection
+class AuthorCollection extends ModuleCollection
 {
     public function toArray($request)
     {

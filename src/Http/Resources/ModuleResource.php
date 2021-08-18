@@ -4,7 +4,7 @@ namespace A17\Twill\API\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Module extends JsonResource
+class ModuleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
