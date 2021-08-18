@@ -39,9 +39,10 @@ class RouteServiceProvider extends ServiceProvider
             $versionPrefix = config('twill.api.version');
             $modelName = Str::ucfirst(Str::singular($moduleName));
             $route = $versionPrefix . '/'. $moduleName;
-            $controller = $controllerNamespace.'\\'.$modelName.'Controller@list';
+            $controller = $controllerNamespace.'\\'.$modelName.'Controller';
 
-            Route::get($route, $controller);
+            Route::get($route, [$controller, 'list']);
+            Route::get($route . '/{id}', [$controller, 'show']);
         });
     }
 
