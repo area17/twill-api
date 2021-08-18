@@ -3,7 +3,7 @@
 namespace A17\Twill\API\Http\Controllers;
 
 use Illuminate\Support\Str;
-use Illuminate\Routing\Controller as Controller;
+use A17\Twill\API\Http\Controllers\Controller;
 
 class ModuleController extends Controller
 {

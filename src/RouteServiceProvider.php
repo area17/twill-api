@@ -8,7 +8,16 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
+    protected $namespace = 'A17\\Twill\API\\Http\\Controllers';
+
     protected $controllerNamespace = 'App\\Http\\Controllers\\API';
+
+    public function register()
+    {
+        $this->registerMacros();
+
+        parent::boot();
+    }
 
     /**
      * Bootstraps the package services.
@@ -17,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerMacros();
+        $this->registerRoutes();
 
         parent::boot();
     }
@@ -34,5 +43,15 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::get($route, $controller);
         });
+    }
+
+    protected function registerRoutes()
+    {
+        Route::prefix('api')
+            ->middleware(['api'])
+            ->namespace($this->namespace)
+            ->group(function () {
+                $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+            });
     }
 }

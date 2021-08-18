@@ -55,7 +55,8 @@
   "extra": {
     "laravel": {
       "providers": [
-        "A17\\Twill\\API\\ServiceProvider"
+        "A17\\Twill\\API\\ServiceProvider",
+        "A17\\Twill\\API\\RouteServiceProvider"
       ],
       "aliases": {
         "TwillAPI": "A17\\Twill\\API\\Facade"
