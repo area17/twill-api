@@ -35,7 +35,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $controllerNamespace = $this->controllerNamespace;
 
-        Route::macro('apiModule', function ($moduleName) use ($controllerNamespace) {
+        Route::macro('moduleResource', function ($moduleName) use ($controllerNamespace) {
             $versionPrefix = config('twill.api.version');
             $modelName = Str::ucfirst(Str::singular($moduleName));
             $route = $versionPrefix . '/'. $moduleName;
