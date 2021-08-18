@@ -27,6 +27,7 @@ class BookFactory extends Factory
             'description' => $this->faker->paragraphs(2, true),
             'created_at' => now(),
             'published' => true,
+            'active' => true,
         ];
     }
 

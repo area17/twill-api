@@ -9,16 +9,23 @@ use A17\Twill\Models\Behaviors\HasFiles;
 use A17\Twill\Models\Behaviors\HasBlocks;
 use A17\Twill\Models\Behaviors\HasMedias;
 use A17\Twill\Models\Behaviors\HasRevisions;
+use A17\Twill\Models\Behaviors\HasTranslation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Book extends Model
 {
-    use HasBlocks, HasSlug, HasMedias, HasFiles, HasRevisions, HasFactory;
+    use HasBlocks, HasSlug, HasMedias, HasFiles, HasRevisions, HasFactory, HasTranslation;
 
     protected $fillable = [
         'published',
         'title',
         'description',
+    ];
+
+    public $translatedAttributes = [
+        'title',
+        'description',
+        'active',
     ];
 
     public $slugAttributes = [
