@@ -1,1 +1,46 @@
 # Twill API
+
+Provide a read-only API to Twill models and entities.
+## Installation
+
+### Install the `twill-api` package
+```
+composer require area17/twill-api
+```
+
+### Add `SetLocale` middleware
+
+Twill API is using the `api` middleware group provided by default by Laravel. If your content is multilingual and for the API to return the results in the right locale, you need to add this middleware to `app/Http/Kernel.php`.
+
+You can query the API by adding the locale query string to the url. For example `https://example.com/api/v1/books?locale=fr` will give you the results available in the French (fr) locale.
+
+```php
+    protected $middlewareGroups = [
+        // ...
+
+        'api' => [
+            // ...
+            \A17\Twill\API\Http\Middleware\SetLocale::class,
+        ],
+    ];
+```
+
+### Create the resource controller and register the endpoints
+
+ This artisan command will create `app/Http/Controllers/API/BookController.php` and will assume its model to be `App\Models\Book`.
+
+```bash
+php artisan twill-api:make:controller books
+```
+
+In `routes/api.php`, you can register you modules with the macro `moduleResource`.
+
+```php
+Route::moduleResource('books');
+```
+
+
+Two endpoints are now available:
+
+- `/api/v1/books`
+- `/api/v1/books/{id}`
