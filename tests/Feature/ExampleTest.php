@@ -61,4 +61,13 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_module_api_authors_list_exists()
+    {
+        $versionPrefix = config('twill.api.version');
+
+        $response = $this->get("/api/$versionPrefix/authors");
+
+        $response->assertStatus(200);
+    }
 }

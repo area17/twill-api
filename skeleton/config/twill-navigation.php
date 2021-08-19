@@ -12,4 +12,17 @@ return [
         'module' => true
     ],
 
+    'settings' => [
+        'title' => 'Settings',
+        'route' => 'admin.settings',
+        'params' => ['section' => 'general'],
+        'primary_navigation' => [
+            'general' => [
+                'title' => 'General',
+                'route' => 'admin.settings',
+                'params' => ['section' => 'general']
+            ],
+        ]
+    ],
+
 ];
