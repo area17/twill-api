@@ -44,3 +44,23 @@ Two endpoints are now available:
 
 - `/api/v1/books`
 - `/api/v1/books/{id}`
+
+## Endpoints
+
+List of available endpoints:
+
+- `/api/v1`
+- `/api/v1/blocks`
+- `/api/v1/blocks/{id}`
+- `/api/v1/files`
+- `/api/v1/files/{id}`
+- `/api/v1/medias`
+- `/api/v1/medias/{id}`
+- `/api/v1/features`
+- `/api/v1/features/{id}`
+- `/api/v1/users`
+- `/api/v1/users/{id}`
+- `/api/v1/tags`
+- `/api/v1/tags/{id}`
+- `/api/v1/settings`
+- `/api/v1/settings/{id}`
