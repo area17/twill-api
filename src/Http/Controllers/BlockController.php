@@ -14,18 +14,19 @@ class BlockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function index()
     {
         return new BlockCollection(Block::paginate());
     }
 
     /**
-     * Display a listing of the resource.
+     * Display the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $block)
+    public function show($id)
     {
-        return new BlockResource(Block::findOrFail($block));
+        return new BlockResource(Block::findOrFail($id));
     }
 }

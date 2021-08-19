@@ -41,15 +41,15 @@ class RouteServiceProvider extends ServiceProvider
             $route = $versionPrefix . '/'. $moduleName;
             $controller = $controllerNamespace.'\\'.$modelName.'Controller';
 
-            Route::get($route, [$controller, 'list']);
+            Route::get($route, [$controller, 'index']);
             Route::get($route . '/{id}', [$controller, 'show']);
         });
     }
 
     protected function registerRoutes()
     {
-        Route::prefix('api')
-            ->middleware(['api'])
+        Route::prefix(config('twill.api.route-prefix', 'api'))
+            ->middleware(config('twill.api.middleware', ['api']))
             ->namespace($this->namespace)
             ->group(function () {
                 $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
