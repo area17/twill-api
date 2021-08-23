@@ -16,11 +16,6 @@ class ExampleTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
     public function test_a_basic_request()
     {
         $response = $this->get('/');
@@ -28,45 +23,30 @@ class ExampleTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_api_version_route()
+    public function test_a_basic_api_request()
     {
-        $versionPrefix = config('twill.api.version');
-
-        $response = $this->get("/api/$versionPrefix");
-
-        $response->assertJson([ 'data' => [] ]);
+        $response = $this->get('/api/v1');
 
         $response->assertStatus(200);
     }
 
     public function test_module_api_blocks_list_exists()
     {
-        $versionPrefix = config('twill.api.version');
-
-        $response = $this->get("/api/$versionPrefix/blocks");
+        $response = $this->get("/api/v1/blocks");
 
         $response->assertStatus(200);
     }
 
     public function test_module_api_books_list_exists()
     {
-        $versionPrefix = config('twill.api.version');
-
-        $response = $this->get("/api/$versionPrefix/books");
+        $response = $this->get("/api/v1/books");
 
         $response->assertStatus(200);
     }
 
     public function test_module_api_authors_list_exists()
     {
-        $versionPrefix = config('twill.api.version');
-
-        $response = $this->get("/api/$versionPrefix/authors");
+        $response = $this->get("/api/v1/authors");
 
         $response->assertStatus(200);
     }
