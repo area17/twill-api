@@ -23,13 +23,6 @@ class ExampleTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_a_basic_api_request()
-    {
-        $response = $this->get('/api/v1');
-
-        $response->assertStatus(200);
-    }
-
     public function test_module_api_blocks_list_exists()
     {
         $response = $this->get("/api/v1/blocks");

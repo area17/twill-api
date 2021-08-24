@@ -1,5 +1,5 @@
+base: /skeleton/
 source:
-  base: /skeleton/
   app: app/
   config: config/
   resource: resources/
@@ -8,24 +8,23 @@ source:
   database: database/
 copy:
   - files:
+      - jsonapi.php
+    to: config
+  - files:
       - routes/web.php
       - routes/api.php
     to: base
   - files:
-      - Http/Controllers/Controller.php
-      - Http/Controllers/API/AuthorController.php
-      - Http/Controllers/API/BookController.php
-      - Http/Resources/BookResource.php
-      - Http/Resources/BookCollection.php
-      - Http/Resources/AuthorResource.php
-      - Http/Resources/AuthorCollection.php
+      - JsonApi/V1/Server.php
+      - JsonApi/V1/Authors/AuthorSchema.php
+      - JsonApi/V1/Books/BookSchema.php
+      - JsonApi/V1/Server.php
       - Models/Book.php
       - Models/Revisions/BookRevision.php
       - Models/Translations/BookTranslation.php
       - Models/Slugs/BookSlug.php
       - Models/Author.php
       - Models/Slugs/AuthorSlug.php
-      - Providers/RouteServiceProvider.php
     to: app
   - files:
       - factories/AuthorFactory.php
@@ -35,9 +34,6 @@ copy:
       - seeders/BookSeeder.php
       - seeders/TwillUserSeeder.php
       - seeders/DatabaseSeeder.php
-      - migrations/2014_10_12_000000_create_users_table.php
-      - migrations/2014_10_12_100000_create_password_resets_table.php
-      - migrations/2019_08_19_000000_create_failed_jobs_table.php
       - migrations/2021_08_16_190222_create_books_tables.php
       - migrations/2021_08_16_192302_create_authors_tables.php
       - migrations/2021_08_16_192730_create_author_book_table.php

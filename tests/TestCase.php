@@ -4,12 +4,13 @@ namespace Tests;
 
 use A17\Twill\Models\User;
 use Faker\Factory as Faker;
-use Symfony\Component\Yaml\Yaml;
-use Illuminate\Filesystem\Filesystem;
+use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
+    use MakesJsonApiRequests;
+
     const DEFAULT_LOCALE = 'en_US';
     const DEFAULT_PASSWORD = 'secret';
 
@@ -34,17 +35,40 @@ abstract class TestCase extends OrchestraTestCase
 
         $this->faker = Faker::create(self::DEFAULT_LOCALE);
 
+        $this->loadLaravelMigrations();
+        $this->loadMigrationsFrom(__DIR__ . '/Dummy/database/migrations');
+
         $this->superAdmin = $this->makeSuperAdmin();
-
-        $this->copyFiles();
-
-        $this->artisan('migrate');
 
         $this->setUpTwill();
 
-        $this->artisan('db:seed');
+        // $this->artisan('db:seed', ['class' => \Database\Seeders\DatabaseSeeder::class]);
 
         $this->withoutExceptionHandling();
+    }
+
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     */
+    protected function resolveApplicationExceptionHandler($app)
+    {
+        $app->singleton(
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            \LaravelJsonApi\Testing\TestExceptionHandler::class
+        );
+    }
+
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function defineEnvironment($app)
+    {
+        $app['config']->set('jsonapi.servers', [
+            'v1' => \App\JsonApi\V1\Server::class,
+        ]);
     }
 
     /**
@@ -58,93 +82,17 @@ abstract class TestCase extends OrchestraTestCase
     {
         return [
             // Packages
-            'A17\Twill\TwillServiceProvider',
-            'A17\Twill\API\ServiceProvider',
-            'A17\Twill\API\RouteServiceProvider',
+            \A17\Twill\TwillServiceProvider::class,
+            \A17\Twill\API\ServiceProvider::class,
+            \A17\Twill\API\RouteServiceProvider::class,
+            \LaravelJsonApi\Spec\ServiceProvider::class,
+            \LaravelJsonApi\Validation\ServiceProvider::class,
+            \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
+            \LaravelJsonApi\Laravel\ServiceProvider::class,
 
             // App
-            'App\Providers\RouteServiceProvider',
+            \App\Providers\RouteServiceProvider::class,
         ];
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        $this->boot($app);
-    }
-
-    /**
-     * Boot the TestCase.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     */
-    protected function boot($app)
-    {
-        $this->files = $app->make(Filesystem::class);
-    }
-
-    protected function copyFiles()
-    {
-        $config = Yaml::parseFile(__DIR__ . "/skeleton.yml");
-        $sources = $config['source'];
-        $base = __DIR__ . '/../' . trim($sources['base'], '/') . '/';
-        $filesets = $config['copy'];
-
-        foreach ($filesets as $fileset) {
-            foreach ($fileset['files'] as $file) {
-                switch ($fileset['to']) {
-                    case 'app':
-                        $source = $base . $sources['app'] . '/' . $file;
-                        $destination = app_path($file);
-                        break;
-                    case 'config':
-                        $source = $base . $sources['config'] . '/' . $file;
-                        $destination = config_path($file);
-                        break;
-                    case 'resource':
-                        $source = $base . $sources['resources'] . '/' . $file;
-                        $destination = resource_path($file);
-                        break;
-                    case 'storage':
-                        $source = $base . $sources['storage'] . '/' . $file;
-                        $destination = storage_path($file);
-                        break;
-                    case 'public':
-                        $source = $base . $sources['public'] . '/' . $file;
-                        $destination = public_path($file);
-                        break;
-                    case 'database':
-                        $source = $base . $sources['database'] . '/' . $file;
-                        $destination = database_path($file);
-                        break;
-                    case 'base':
-                    default:
-                        $source = $base . $file;
-                        $destination = base_path($file);
-                }
-
-                $this->copyFile($source, $destination);
-            }
-        }
-    }
-
-    protected function copyFile($source, $destination)
-    {
-        if (!$this->files->exists($directory = dirname($destination))) {
-            $this->files->makeDirectory($directory, 0755, true);
-        }
-
-        $this->files->copy($source, $destination);
-    }
-
-    protected function setUpTwill()
-    {
-        $this->artisan('twill:install')
-            ->expectsQuestion('Enter an email', $this->superAdmin->email)
-            ->expectsQuestion('Enter a password', $this->superAdmin->password)
-            ->expectsQuestion(
-                'Confirm the password',
-                $this->superAdmin->password
-            );
     }
 
     /**
@@ -160,5 +108,16 @@ abstract class TestCase extends OrchestraTestCase
         $user->setAttribute('unencrypted_password', self::DEFAULT_PASSWORD);
 
         return $this->superAdmin = $user;
+    }
+
+    protected function setUpTwill()
+    {
+        $this->artisan('twill:install')
+            ->expectsQuestion('Enter an email', $this->superAdmin->email)
+            ->expectsQuestion('Enter a password', $this->superAdmin->password)
+            ->expectsQuestion(
+                'Confirm the password',
+                $this->superAdmin->password
+            );
     }
 }
