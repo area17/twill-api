@@ -8,7 +8,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected $namespace = 'A17\\Twill\API\\Http\\Controllers';
+    protected $namespace = 'A17\Twill\API\JsonApi\V1';
 
     protected $controllerNamespace = 'App\\Http\\Controllers\\API';
 

@@ -1,43 +1,37 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
+use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
-$versionPrefix = '/' . config('twill.api.version');
+JsonApiRoute::server('v1')
+    ->prefix('v1')
+    ->namespace('A17\Twill\API\JsonApi\V1')
+    ->resources(function ($server) {
+        if (config('twill.enabled.block-editor') && config('twill.api.endpoints.blocks')) {
+            $server->resource('blocks', '\\' . JsonApiController::class);
+        }
 
-if (config('twill.api.endpoints.index')) {
-    Route::get($versionPrefix, 'IndexController@index');
-}
+        if (config('twill.enabled.media-library') && config('twill.api.endpoints.medias')) {
+            $server->resource('media', '\\' . JsonApiController::class);
+        }
 
-if (config('twill.enabled.block-editor') && config('twill.api.endpoints.blocks')) {
-    Route::get($versionPrefix . '/blocks', 'BlockController@index');
-    Route::get($versionPrefix . '/blocks/{block}', 'BlockController@show');
-}
+        if (config('twill.enabled.file-library') && config('twill.api.endpoints.files')) {
+            $server->resource('files', '\\' . JsonApiController::class);
+        }
 
-if (config('twill.enabled.media-library') && config('twill.api.endpoints.medias')) {
-    Route::get($versionPrefix . '/medias', 'MediaController@index');
-    Route::get($versionPrefix . '/medias/{media}', 'MediaController@show');
-}
+        if (config('twill.enabled.buckets') && config('twill.api.endpoints.features')) {
+            $server->resource('features', '\\' . JsonApiController::class);
+        }
 
-if (config('twill.enabled.file-library') && config('twill.api.endpoints.files')) {
-    Route::get($versionPrefix . '/files', 'FileController@index');
-    Route::get($versionPrefix . '/files/{file}', 'FileController@show');
-}
+        if (config('twill.api.endpoints.tags')) {
+            $server->resource('tags', '\\' . JsonApiController::class);
+        }
 
-if (config('twill.enabled.buckets') && config('twill.api.endpoints.features')) {
-    Route::get($versionPrefix . '/features', 'FeatureController@index');
-    Route::get($versionPrefix . '/features/{feature}', 'FeatureController@show');
-}
+        if (config('twill.enabled.users-management') && config('twill.api.endpoints.users')) {
+            $server->resource('users', '\\' . JsonApiController::class);
+        }
 
-if (config('twill.api.endpoints.tags')) {
-    Route::get($versionPrefix . '/tags', 'TagController@index');
-    Route::get($versionPrefix . '/tags/{tag}', 'TagController@show');
-}
-
-if (config('twill.enabled.users-management') && config('twill.api.endpoints.users')) {
-    Route::get($versionPrefix . '/users', 'UserController@index');
-    Route::get($versionPrefix . '/users/{user}', 'UserController@show');
-}
-
-if (config('twill.enabled.settings') && config('twill.api.endpoints.settings')) {
-    Route::get($versionPrefix . '/settings', 'SettingController@index');
-}
+        if (config('twill.enabled.settings') && config('twill.api.endpoints.settings')) {
+            $server->resource('settings', '\\' . JsonApiController::class);
+        }
+    });

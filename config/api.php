@@ -4,10 +4,11 @@ return [
 
     'version' => 'v1',
 
-    'middleware' => ['api'],
+    'middleware' => [
+        'api'
+    ],
 
     'route_prefix' => 'api',
-
 
     'endpoints' => [
         'index' => true,
@@ -19,5 +20,4 @@ return [
         'users' => true,
         'settings' => true,
     ],
-
 ];

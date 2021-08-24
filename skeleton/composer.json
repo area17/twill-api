@@ -16,14 +16,16 @@
     "require": {
         "php": "^7.3|^8.0",
         "area17/twill": "^2.4",
+        "area17/twill-api": "dev-develop",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "laravel-json-api/laravel": "^1.0",
         "laravel/framework": "^8.54",
-        "laravel/tinker": "^2.5",
-        "area17/twill-api": "*"
+        "laravel/tinker": "^2.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
+        "laravel-json-api/testing": "^1.0",
         "laravel/homestead": "12.3.0",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
@@ -66,6 +68,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "alpha",
     "prefer-stable": true
 }
