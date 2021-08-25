@@ -2,6 +2,11 @@
 
 return [
 
+    'pages' => [
+        'title' => 'Pages',
+        'module' => true
+    ],
+
     'books' => [
         'title' => 'Books',
         'module' => true
