@@ -8,7 +8,7 @@ use Illuminate\Filesystem\Filesystem;
 
 require __DIR__.'/../../vendor/autoload.php';
 
-class UpdateDummy
+class Dummy
 {
     protected $files;
 
@@ -35,7 +35,7 @@ class UpdateDummy
 
     public function update()
     {
-        $config = Yaml::parseFile(__DIR__ . "/dummy.yml");
+        $config = Yaml::parseFile(__DIR__ . "/Dummy.yaml");
         $sources = $config['source'];
         $base = __DIR__ . '/../../' . trim($config['base'], '/') . '/';
         $destBase = __DIR__ . '/';
@@ -80,5 +80,5 @@ class UpdateDummy
     }
 }
 
-$copy = new UpdateDummy();
-$copy->update();
+$dummy = new Dummy();
+$dummy->update();
