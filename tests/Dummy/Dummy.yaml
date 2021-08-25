@@ -17,6 +17,7 @@ copy:
   - files:
       - JsonApi/V1/Server.php
       - JsonApi/V1/Authors/AuthorSchema.php
+      - JsonApi/V1/Blocks/BlockSchema.php
       - JsonApi/V1/Books/BookSchema.php
       - JsonApi/V1/Pages/PageSchema.php
       - JsonApi/V1/Server.php
