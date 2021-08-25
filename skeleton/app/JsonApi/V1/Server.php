@@ -2,7 +2,6 @@
 
 namespace App\JsonApi\V1;
 
-use A17\Twill\API\JsonApi\V1\Blocks\BlockSchema;
 use A17\Twill\API\JsonApi\V1\Features\FeatureSchema;
 use A17\Twill\API\JsonApi\V1\Files\FileSchema;
 use A17\Twill\API\JsonApi\V1\Media\MediaSchema;
@@ -42,7 +41,7 @@ class Server extends BaseServer
             Authors\AuthorSchema::class,
             Books\BookSchema::class,
             Pages\PageSchema::class,
-            BlockSchema::class,
+            Blocks\BlockSchema::class,
             FeatureSchema::class,
             FileSchema::class,
             MediaSchema::class,
