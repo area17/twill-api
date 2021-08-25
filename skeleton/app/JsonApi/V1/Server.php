@@ -41,6 +41,7 @@ class Server extends BaseServer
         return [
             Authors\AuthorSchema::class,
             Books\BookSchema::class,
+            Pages\PageSchema::class,
             BlockSchema::class,
             FeatureSchema::class,
             FileSchema::class,
