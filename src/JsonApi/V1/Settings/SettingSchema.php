@@ -5,6 +5,7 @@ namespace A17\Twill\API\JsonApi\V1\Settings;
 use A17\Twill\Models\Setting;
 use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
@@ -31,6 +32,9 @@ class SettingSchema extends Schema
             ID::make(),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
+            Str::make('key')->sortable()->readOnly(),
+            Str::make('section')->sortable()->readOnly(),
+            Str::make('value'),
         ];
     }
 
