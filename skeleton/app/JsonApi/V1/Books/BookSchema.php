@@ -6,6 +6,7 @@ use App\Models\Book;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
@@ -31,6 +32,7 @@ class BookSchema extends Schema
             ID::make(),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
+            BelongsToMany::make('blocks'),
         ];
     }
 
@@ -55,5 +57,4 @@ class BookSchema extends Schema
     {
         return PagePagination::make();
     }
-
 }
