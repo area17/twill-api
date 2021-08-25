@@ -16,7 +16,19 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next)
     {
-        $locale = $request->header('Accept-Language') ?? $request->input('locale');
+        $acceptedLocales = array_map(
+            static fn ($locale) => str_replace('_', config('translatable.locale_separator'), $locale),
+            $request->getLanguages()
+        );
+
+        foreach ($acceptedLocales as $acceptedLocale) {
+            if (array_search($acceptedLocale, config('translatable.locales'))) {
+                $locale = $acceptedLocale;
+                break;
+            }
+        }
+
+        $locale = $locale ?? $request->input('locale');
 
         if (!$locale) {
             $locale = config('app.locale');
