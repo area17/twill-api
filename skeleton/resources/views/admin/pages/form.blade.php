@@ -8,5 +8,15 @@
         'translated' => true,
     ])
 
+    @formField('medias', [
+        'name' => 'cover',
+        'label' => 'Cover Image',
+    ])
+
+    @formField('files', [
+        'name' => 'attachment',
+        'label' => 'Attachment',
+    ])
+
     @formField('block_editor')
 @stop

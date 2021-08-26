@@ -1,6 +1,6 @@
 <?php
 
-namespace A17\Twill\API\JsonApi\V1\Media;
+namespace A17\Twill\API\JsonApi\V1\Medias;
 
 use A17\Twill\Models\Media;
 use LaravelJsonApi\Eloquent\Schema;

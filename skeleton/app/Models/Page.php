@@ -22,17 +22,21 @@ class Page extends Model implements Sortable
         'description',
         'position',
     ];
-    
+
     public $translatedAttributes = [
         'title',
         'description',
         'active',
     ];
-    
+
     public $slugAttributes = [
         'title',
     ];
-    
+
+    public $filesParams = [
+        'attachment'
+    ];
+
     public $mediasParams = [
         'cover' => [
             'desktop' => [

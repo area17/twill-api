@@ -2,12 +2,12 @@
 
 namespace App\JsonApi\V1;
 
-use A17\Twill\API\JsonApi\V1\Features\FeatureSchema;
-use A17\Twill\API\JsonApi\V1\Files\FileSchema;
-use A17\Twill\API\JsonApi\V1\Media\MediaSchema;
-use A17\Twill\API\JsonApi\V1\Settings\SettingSchema;
 use A17\Twill\API\JsonApi\V1\Tags\TagSchema;
+use A17\Twill\API\JsonApi\V1\Files\FileSchema;
 use A17\Twill\API\JsonApi\V1\Users\UserSchema;
+use A17\Twill\API\JsonApi\V1\Medias\MediaSchema;
+use A17\Twill\API\JsonApi\V1\Features\FeatureSchema;
+use A17\Twill\API\JsonApi\V1\Settings\SettingSchema;
 use LaravelJsonApi\Core\Server\Server as BaseServer;
 
 class Server extends BaseServer

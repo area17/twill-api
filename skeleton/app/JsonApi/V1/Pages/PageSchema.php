@@ -45,6 +45,8 @@ class PageSchema extends Schema
                 static fn ($value) => $value ? self::STATUS_PUBLISHED : self::STATUS_DRAFT
             ),
             BelongsToMany::make('blocks'),
+            BelongsToMany::make('medias')->type('media'),
+            BelongsToMany::make('files'),
         ];
     }
 
