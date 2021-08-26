@@ -5,8 +5,10 @@ namespace A17\Twill\API\JsonApi\V1\Files;
 use A17\Twill\Models\File;
 use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use A17\Twill\Services\FileLibrary\FileService;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 
@@ -29,8 +31,14 @@ class FileSchema extends Schema
     {
         return [
             ID::make(),
+            Str::make('uuid'),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
+            Str::make('filename'),
+            Str::make('url', 'uuid')->serializeUsing(
+                static fn ($value) => FileService::getUrl($value)
+            ),
+            Str::make('size'),
         ];
     }
 
