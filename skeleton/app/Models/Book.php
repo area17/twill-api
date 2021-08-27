@@ -20,16 +20,35 @@ class Book extends Model
         'published',
         'title',
         'description',
+        'isbn',
+        'publication_date',
+        'formats',
+        'topics',
+        'forthcoming',
+        'available',
     ];
 
     public $translatedAttributes = [
         'title',
         'description',
         'active',
+        'subtitle',
+        'summary',
     ];
 
     public $slugAttributes = [
         'title',
+    ];
+
+    protected $casts = [
+        'formats' => 'array',
+        'topics' => 'array',
+        'available' => 'array',
+    ];
+
+    public $filesParams = [
+        'attachment',
+        'attachments',
     ];
 
     public $mediasParams = [
@@ -61,10 +80,55 @@ class Book extends Model
                 ],
             ],
         ],
+        'preview' => [
+            'default' => [
+                [
+                    'name' => 'default',
+                ],
+            ],
+        ],
     ];
 
     public function authors()
     {
         return $this->belongsToMany(Author::class)->orderBy('position');
+    }
+
+    public function getFormatsAttribute($value)
+    {
+        return collect(json_decode($value))->map(function ($value) {
+            return [
+                'id' => $value,
+            ];
+        })->all();
+    }
+
+    public function setFormatsAttribute($value)
+    {
+        $this->attributes['formats'] = collect($value)->filter()->values();
+    }
+
+    public function getTopicsAttribute($value)
+    {
+        return collect(json_decode($value))->map(function ($value) {
+            return [
+                'id' => $value,
+            ];
+        })->all();
+    }
+
+    public function setTopicsAttribute($value)
+    {
+        $this->attributes['topics'] = collect($value)->filter()->values();
+    }
+
+    public function getAvailableAttribute($value)
+    {
+        return collect(json_decode($value))->first();
+    }
+
+    public function setAvailableAttribute($value)
+    {
+        $this->attributes['available'] = collect($value)->filter()->values();
     }
 }

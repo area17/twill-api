@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "299e39ec7573718865b544ef66966d7e",
+    "content-hash": "460f91d5e831461415718d3b68e125d5",
     "packages": [
         {
             "name": "area17/twill",
@@ -97,7 +97,7 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "20897e3a0705ee2a9ede2c108065766cb7a7bc32"
+                "reference": "99dc145211091884d1518166547787c851499229"
             },
             "require": {
                 "area17/twill": "^2.4",
@@ -163,6 +163,60 @@
                 "symlink": true,
                 "relative": true
             }
+        },
+        {
+            "name": "area17/twill-image",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/area17/twill-image.git",
+                "reference": "b12bde7caf449daab52d71c3a22ddbb85dcd168f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/area17/twill-image/zipball/b12bde7caf449daab52d71c3a22ddbb85dcd168f",
+                "reference": "b12bde7caf449daab52d71c3a22ddbb85dcd168f",
+                "shasum": ""
+            },
+            "require": {
+                "area17/twill": "2.*",
+                "laravel/framework": "~5.6|~5.7|~5.8|^6.0|^7.0|^8.0",
+                "php": ">=7.2.5"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "A17\\Twill\\Image\\ImageServiceProvider"
+                    ],
+                    "aliases": {
+                        "TwillImage": "A17\\Twill\\Image\\ImageFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "A17\\Twill\\Image\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Patrick Vézina",
+                    "email": "patrick@area17.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/area17/twill-image/issues",
+                "source": "https://github.com/area17/twill-image/tree/develop"
+            },
+            "time": "2021-08-12T20:12:29+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -11141,7 +11195,8 @@
     "aliases": [],
     "minimum-stability": "alpha",
     "stability-flags": {
-        "area17/twill-api": 20
+        "area17/twill-api": 20,
+        "area17/twill-image": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

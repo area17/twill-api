@@ -17,6 +17,7 @@
         "php": "^7.3|^8.0",
         "area17/twill": "^2.4",
         "area17/twill-api": "dev-develop",
+        "area17/twill-image": "dev-develop",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel-json-api/laravel": "^1.0",
