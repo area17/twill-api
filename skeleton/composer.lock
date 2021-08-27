@@ -97,7 +97,7 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "99dc145211091884d1518166547787c851499229"
+                "reference": "3b3984536218284741b76bd6005d1866a5e1c2a7"
             },
             "require": {
                 "area17/twill": "^2.4",
@@ -107,7 +107,6 @@
                 "php": "^7.4|^8.0"
             },
             "require-dev": {
-                "area17/twill-image": "dev-develop",
                 "fakerphp/faker": "^1.15",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "laravel-json-api/testing": "^1.0",
@@ -170,12 +169,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/area17/twill-image.git",
-                "reference": "b12bde7caf449daab52d71c3a22ddbb85dcd168f"
+                "reference": "6f3fbed0725f5ea0a3e54f06645fb2d93ac35b69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/area17/twill-image/zipball/b12bde7caf449daab52d71c3a22ddbb85dcd168f",
-                "reference": "b12bde7caf449daab52d71c3a22ddbb85dcd168f",
+                "url": "https://api.github.com/repos/area17/twill-image/zipball/6f3fbed0725f5ea0a3e54f06645fb2d93ac35b69",
+                "reference": "6f3fbed0725f5ea0a3e54f06645fb2d93ac35b69",
                 "shasum": ""
             },
             "require": {
@@ -186,6 +185,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -193,7 +193,7 @@
                         "A17\\Twill\\Image\\ImageServiceProvider"
                     ],
                     "aliases": {
-                        "TwillImage": "A17\\Twill\\Image\\ImageFacade"
+                        "TwillImage": "A17\\Twill\\Image\\Facades\\TwillImage"
                     }
                 }
             },
@@ -216,7 +216,7 @@
                 "issues": "https://github.com/area17/twill-image/issues",
                 "source": "https://github.com/area17/twill-image/tree/develop"
             },
-            "time": "2021-08-12T20:12:29+00:00"
+            "time": "2021-08-27T19:06:58+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -361,16 +361,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.191.5",
+            "version": "3.191.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c003e59f8976f6fe045c27f6afc5d5004317f39b"
+                "reference": "3b01e0c7c1d9858e5d2f0ee9aa216d621f731765"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c003e59f8976f6fe045c27f6afc5d5004317f39b",
-                "reference": "c003e59f8976f6fe045c27f6afc5d5004317f39b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3b01e0c7c1d9858e5d2f0ee9aa216d621f731765",
+                "reference": "3b01e0c7c1d9858e5d2f0ee9aa216d621f731765",
                 "shasum": ""
             },
             "require": {
@@ -445,9 +445,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.191.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.191.6"
             },
-            "time": "2021-08-26T18:16:35+00:00"
+            "time": "2021-08-27T18:14:01+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -2675,16 +2675,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.56.0",
+            "version": "v8.57.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d700f336dc672dcbfe46db05d4e5fe9347b3a5b6"
+                "reference": "6de01746680d7bc7e239b20ec5cdfe70ce586235"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d700f336dc672dcbfe46db05d4e5fe9347b3a5b6",
-                "reference": "d700f336dc672dcbfe46db05d4e5fe9347b3a5b6",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/6de01746680d7bc7e239b20ec5cdfe70ce586235",
+                "reference": "6de01746680d7bc7e239b20ec5cdfe70ce586235",
                 "shasum": ""
             },
             "require": {
@@ -2839,7 +2839,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-08-24T13:46:30+00:00"
+            "time": "2021-08-27T13:34:11+00:00"
         },
         {
             "name": "laravel/socialite",
