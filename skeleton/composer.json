@@ -21,6 +21,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel-json-api/laravel": "^1.0",
         "laravel/framework": "^8.54",
+        "laravel/telescope": "^4.6",
         "laravel/tinker": "^2.5"
     },
     "require-dev": {
