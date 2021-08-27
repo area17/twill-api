@@ -3,25 +3,16 @@
 namespace App\JsonApi\V1\Books;
 
 use App\Models\Book;
-use LaravelJsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Fields\ID;
+use A17\Twill\Image\Facades\TwillImage;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Number;
-use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ArrayList;
-use A17\Twill\Image\ImageFacade as TwillImage;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use LaravelJsonApi\Eloquent\Contracts\Paginator;
-use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
+use A17\Twill\API\JsonApi\V1\Models\ModelSchema;
 
-class BookSchema extends Schema
+class BookSchema extends ModelSchema
 {
-    public const STATUS_PUBLISHED = 'published';
-    public const STATUS_DRAFT = 'draft';
-
     /**
      * The model the schema corresponds to.
      *
@@ -36,11 +27,9 @@ class BookSchema extends Schema
      */
     public function fields(): array
     {
-        return [
-            ID::make(),
-            DateTime::make('createdAt')->sortable()->readOnly(),
-            DateTime::make('updatedAt')->sortable()->readOnly(),
-            Str::make('slug'),
+        $fields = parent::fields();
+
+        return array_merge($fields, [
             Str::make('title'),
             Str::make('description'),
             Str::make('subtitle'),
@@ -55,22 +44,18 @@ class BookSchema extends Schema
             ),
             Boolean::make('forthcoming'),
             Number::make('available'),
-            Number::make('position')->sortable(),
-            Str::make('status', 'published')->serializeUsing(
-                static fn ($value) => $value ? self::STATUS_PUBLISHED : self::STATUS_DRAFT
-            ),
             ArrayList::make('cover')->extractUsing(
-                self::twillImage('cover', ['crop' => 'default'])
+                static fn ($model) => TwillImage::sources($model, 'cover', [
+                    'crop' => 'default'
+                ])
             ),
             ArrayList::make('previewImages')->extractUsing(
-                self::twillImage('preview', [
+                static fn ($model) => TwillImage::sources($model, 'preview', [
                     'crop' => 'default',
                     'sizes' => '75vw',
                 ])
             ),
-            BelongsToMany::make('blocks'),
-            BelongsToMany::make('files'),
-        ];
+        ]);
     }
 
     /**
@@ -80,32 +65,10 @@ class BookSchema extends Schema
      */
     public function filters(): array
     {
-        return [
-            WhereIdIn::make($this),
-            Where::make('status', 'published')->deserializeUsing(
-                fn ($value) => $value === self::STATUS_PUBLISHED
-            ),
-        ];
-    }
+        $filters = parent::filters();
 
-    /**
-     * Get the resource paginator.
-     *
-     * @return Paginator|null
-     */
-    public function pagination(): ?Paginator
-    {
-        return PagePagination::make();
-    }
-
-    public static function twillImage($role, $args = [], $preset = null)
-    {
-        return function ($model) use ($role, $args, $preset) {
-            $medias = $model->imageObjects($role, $args['crop']);
-
-            return $medias->map(function ($media) use ($model, $role, $args, $preset) {
-                return TwillImage::source($model, $role, $args, $preset, $media);
-            })->toArray();
-        };
+        return array_merge($filters, [
+            //
+        ]);
     }
 }

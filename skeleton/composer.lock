@@ -97,7 +97,7 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "3b3984536218284741b76bd6005d1866a5e1c2a7"
+                "reference": "85d18c81a10b95acbd5805d590a1f8096dda7c26"
             },
             "require": {
                 "area17/twill": "^2.4",
@@ -169,12 +169,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/area17/twill-image.git",
-                "reference": "6f3fbed0725f5ea0a3e54f06645fb2d93ac35b69"
+                "reference": "61fd33eb385e689a7fbe074e9b7d0ce9b5491747"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/area17/twill-image/zipball/6f3fbed0725f5ea0a3e54f06645fb2d93ac35b69",
-                "reference": "6f3fbed0725f5ea0a3e54f06645fb2d93ac35b69",
+                "url": "https://api.github.com/repos/area17/twill-image/zipball/61fd33eb385e689a7fbe074e9b7d0ce9b5491747",
+                "reference": "61fd33eb385e689a7fbe074e9b7d0ce9b5491747",
                 "shasum": ""
             },
             "require": {
@@ -216,7 +216,7 @@
                 "issues": "https://github.com/area17/twill-image/issues",
                 "source": "https://github.com/area17/twill-image/tree/develop"
             },
-            "time": "2021-08-27T19:06:58+00:00"
+            "time": "2021-08-27T21:57:04+00:00"
         },
         {
             "name": "asm89/stack-cors",
