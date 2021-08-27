@@ -23,11 +23,40 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->text(50),
-            'description' => $this->faker->paragraphs(2, true),
             'created_at' => now(),
             'published' => true,
-            'active' => true,
+            "isbn" => $this->faker->randomNumber(8, true),
+            "publication_date" => $this->faker->date('Y-m-d'),
+            "formats" => $this->faker->randomElements([
+                "hardcover",
+                "paperback",
+                "epub"
+            ]),
+            "topics" => $this->faker->randomElements([
+                "arts",
+                "finance",
+                "civic",
+            ]),
+            "available" => $this->faker->randomElements([
+                "available",
+                "back-order",
+                "out-of-print",
+            ], 1),
+            'forthcoming' => $this->faker->boolean(),
+            'en' => [
+                'title' => $this->faker->text(50),
+                'description' => $this->faker->paragraphs(1, true),
+                'subtitle' => $this->faker->text(50),
+                'summary' => '<p>'.$this->faker->paragraph().'</p>',
+                'active' => true,
+            ],
+            'fr' => [
+                'title' => $this->faker->text(50),
+                'description' => $this->faker->paragraphs(1, true),
+                'subtitle' => $this->faker->text(50),
+                'summary' => '<p>'.$this->faker->paragraph().'</p>',
+                'active' => true,
+            ],
         ];
     }
 
