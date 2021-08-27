@@ -35,7 +35,7 @@ class FileSchema extends Schema
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
             Str::make('filename'),
-            Str::make('url', 'uuid')->serializeUsing(
+            Str::make('src', 'uuid')->serializeUsing(
                 static fn ($value) => FileService::getUrl($value)
             ),
             Str::make('size'),
