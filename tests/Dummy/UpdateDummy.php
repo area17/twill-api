@@ -8,7 +8,7 @@ use Illuminate\Filesystem\Filesystem;
 
 require __DIR__.'/../../vendor/autoload.php';
 
-class Dummy
+class UpdateDummy
 {
     protected $files;
 
@@ -80,5 +80,5 @@ class Dummy
     }
 }
 
-$dummy = new Dummy();
+$dummy = new UpdateDummy();
 $dummy->update();
