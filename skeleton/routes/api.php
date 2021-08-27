@@ -28,8 +28,5 @@ JsonApiRoute::server('v1')
             $relationships->hasMany('blocks');
             $relationships->hasMany('files');
         });
-        $server->resource('pages', '\\' . JsonApiController::class)->relationships(function ($relationships) {
-            $relationships->hasMany('blocks');
-        });
         $server->resource('authors', '\\' . JsonApiController::class);
     });

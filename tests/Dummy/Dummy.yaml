@@ -19,7 +19,6 @@ copy:
       - JsonApi/V1/Authors/AuthorSchema.php
       - JsonApi/V1/Blocks/BlockSchema.php
       - JsonApi/V1/Books/BookSchema.php
-      - JsonApi/V1/Pages/PageSchema.php
       - JsonApi/V1/Server.php
       - Models/Book.php
       - Models/Revisions/BookRevision.php
@@ -27,10 +26,6 @@ copy:
       - Models/Slugs/BookSlug.php
       - Models/Author.php
       - Models/Slugs/AuthorSlug.php
-      - Models/Page.php
-      - Models/Revisions/PageRevision.php
-      - Models/Translations/PageTranslation.php
-      - Models/Slugs/PageSlug.php
     to: app
   - files:
       - factories/AuthorFactory.php
@@ -43,5 +38,4 @@ copy:
       - migrations/2021_08_16_190222_create_books_tables.php
       - migrations/2021_08_16_192302_create_authors_tables.php
       - migrations/2021_08_16_192730_create_author_book_table.php
-      - migrations/2021_08_25_154731_create_pages_tables.php
     to: database
