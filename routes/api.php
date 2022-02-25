@@ -6,7 +6,10 @@ use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 JsonApiRoute::server('v1')
     ->prefix('v1')
     ->namespace('A17\Twill\API\JsonApi\V1')
+    ->withoutMiddleware(\Illuminate\Routing\Middleware\SubstituteBindings::class)
     ->resources(function ($server) {
+        $server->resource('mediables', '\\' . JsonApiController::class);
+
         if (config('twill.enabled.block-editor') && config('twill.api.endpoints.blocks')) {
             $server->resource('blocks', '\\' . JsonApiController::class)->relationships(function ($relationships) {
                 $relationships->hasMany('medias');
