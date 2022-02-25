@@ -12,12 +12,12 @@
     "area17/twill": "^2.4",
     "guzzlehttp/guzzle": "^7.0",
     "illuminate/support": "^8.0",
-    "laravel-json-api/laravel": "^1.0"
+    "laravel-json-api/laravel": "^2.1"
   },
   "require-dev": {
     "fakerphp/faker": "^1.15",
     "friendsofphp/php-cs-fixer": "^3.0",
-    "laravel-json-api/testing": "^1.0",
+    "laravel-json-api/testing": "^1.1",
     "mockery/mockery": "^1.4",
     "nunomaduro/collision": "^5.8",
     "orchestra/testbench": "^6.20",
