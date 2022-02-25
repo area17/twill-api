@@ -10,8 +10,8 @@ use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
-use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 
 class BlockSchema extends Schema
 {
@@ -35,30 +35,14 @@ class BlockSchema extends Schema
      */
     public function fields(): array
     {
-        $blockableField = $this->blockableField();
-
         return [
             ID::make(),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
             Str::make('type')->sortable()->readOnly(),
             ArrayHash::make('content')->sortKeys(),
-            ...$blockableField,
-        ];
-    }
-
-    protected function blockableField(): array
-    {
-        $count = count($this->blockable);
-
-        if ($count === 0) {
-            return [];
-        }
-
-        return [
-            $count === 1
-                ? MorphTo::make('blockable')->type(...$this->blockable)
-                : MorphTo::make('blockable')->types(...$this->blockable)
+            BelongsToMany::make('medias'),
+            BelongsToMany::make('files'),
         ];
     }
 

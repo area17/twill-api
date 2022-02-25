@@ -42,6 +42,10 @@ abstract class ModelSchema extends Schema
             $fields[] = BelongsToMany::make('blocks');
         }
 
+        if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasMedias')) {
+            $fields[] = BelongsToMany::make('medias');
+        }
+
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasFiles')) {
             $fields[] = BelongsToMany::make('files');
         }

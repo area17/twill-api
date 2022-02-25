@@ -8,11 +8,14 @@ JsonApiRoute::server('v1')
     ->namespace('A17\Twill\API\JsonApi\V1')
     ->resources(function ($server) {
         if (config('twill.enabled.block-editor') && config('twill.api.endpoints.blocks')) {
-            $server->resource('blocks', '\\' . JsonApiController::class);
+            $server->resource('blocks', '\\' . JsonApiController::class)->relationships(function ($relationships) {
+                $relationships->hasMany('medias');
+                $relationships->hasMany('files');
+            });
         }
 
         if (config('twill.enabled.media-library') && config('twill.api.endpoints.medias')) {
-            $server->resource('media', '\\' . JsonApiController::class);
+            $server->resource('medias', '\\' . JsonApiController::class);
         }
 
         if (config('twill.enabled.file-library') && config('twill.api.endpoints.files')) {
