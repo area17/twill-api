@@ -54,8 +54,8 @@ List of available endpoints:
 - `/api/v1/blocks/{id}`
 - `/api/v1/files`
 - `/api/v1/files/{id}`
-- `/api/v1/medias`
-- `/api/v1/medias/{id}`
+- `/api/v1/media`
+- `/api/v1/media/{id}`
 - `/api/v1/features`
 - `/api/v1/features/{id}`
 - `/api/v1/users`

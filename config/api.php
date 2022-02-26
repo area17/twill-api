@@ -13,7 +13,7 @@ return [
     'endpoints' => [
         'index' => true,
         'blocks' => true,
-        'medias' => true,
+        'media' => true,
         'files' => true,
         'features' => true,
         'tags' => true,

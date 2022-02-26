@@ -8,7 +8,9 @@ JsonApiRoute::server('v1')
     ->namespace('A17\Twill\API\JsonApi\V1')
     ->withoutMiddleware(\Illuminate\Routing\Middleware\SubstituteBindings::class)
     ->resources(function ($server) {
-        $server->resource('mediables', '\\' . JsonApiController::class);
+        $server->resource('mediables', '\\' . JsonApiController::class)->relationships(function ($relationships) {
+            $relationships->hasOne('media');
+        });
 
         if (config('twill.enabled.block-editor') && config('twill.api.endpoints.blocks')) {
             $server->resource('blocks', '\\' . JsonApiController::class)->relationships(function ($relationships) {
@@ -17,8 +19,8 @@ JsonApiRoute::server('v1')
             });
         }
 
-        if (config('twill.enabled.media-library') && config('twill.api.endpoints.medias')) {
-            $server->resource('medias', '\\' . JsonApiController::class);
+        if (config('twill.enabled.media-library') && config('twill.api.endpoints.media')) {
+            $server->resource('media', '\\' . JsonApiController::class);
         }
 
         if (config('twill.enabled.file-library') && config('twill.api.endpoints.files')) {

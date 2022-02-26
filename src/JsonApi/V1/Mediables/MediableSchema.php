@@ -10,6 +10,7 @@ use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 
 class MediableSchema extends Schema
@@ -38,6 +39,7 @@ class MediableSchema extends Schema
             Str::make('ratio'),
             Str::make('lqip', 'lqip_data'),
             ArrayHash::make('image'),
+            BelongsTo::make('media'),
         ];
     }
 

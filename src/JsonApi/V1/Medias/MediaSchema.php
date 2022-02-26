@@ -12,7 +12,7 @@ use A17\Twill\Services\FileLibrary\FileService;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 
-class MediasSchema extends Schema
+class MediaSchema extends Schema
 {
 
     /**
