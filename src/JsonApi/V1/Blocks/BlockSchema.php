@@ -2,18 +2,17 @@
 
 namespace A17\Twill\API\JsonApi\V1\Blocks;
 
-use A17\Twill\Models\Block;
-use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use LaravelJsonApi\Eloquent\Fields\DateTime;
+use A17\Twill\API\JsonApi\Proxies\Block;
+use LaravelJsonApi\Eloquent\ProxySchema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 
-class BlockSchema extends Schema
+class BlockSchema extends ProxySchema
 {
 
     /**
@@ -24,11 +23,6 @@ class BlockSchema extends Schema
     public static string $model = Block::class;
 
     /**
-     * Blockable models
-     */
-    public array $blockable = [];
-
-    /**
      * Get the resource fields.
      *
      * @return array
@@ -37,11 +31,9 @@ class BlockSchema extends Schema
     {
         return [
             ID::make(),
-            DateTime::make('createdAt')->sortable()->readOnly(),
-            DateTime::make('updatedAt')->sortable()->readOnly(),
             Str::make('type')->sortable()->readOnly(),
             ArrayHash::make('content')->sortKeys(),
-            BelongsToMany::make('medias'),
+            BelongsToMany::make('mediables'),
             BelongsToMany::make('files'),
         ];
     }

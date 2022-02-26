@@ -12,7 +12,7 @@ JsonApiRoute::server('v1')
 
         if (config('twill.enabled.block-editor') && config('twill.api.endpoints.blocks')) {
             $server->resource('blocks', '\\' . JsonApiController::class)->relationships(function ($relationships) {
-                $relationships->hasMany('medias');
+                $relationships->hasMany('mediables');
                 $relationships->hasMany('files');
             });
         }
