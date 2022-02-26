@@ -2,17 +2,17 @@
 
 namespace A17\Twill\API\JsonApi\V1\Blocks;
 
+use A17\Twill\Models\Block;
+use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use A17\Twill\API\JsonApi\Proxies\Block;
-use LaravelJsonApi\Eloquent\ProxySchema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 
-class BlockSchema extends ProxySchema
+class BlockSchema extends Schema
 {
 
     /**
