@@ -23,6 +23,13 @@ class BlockSchema extends Schema
     public static string $model = Block::class;
 
     /**
+    * The maximum depth of include paths.
+    *
+    * @var int
+    */
+    protected int $maxDepth = 2;
+
+    /**
      * Get the resource fields.
      *
      * @return array
@@ -33,8 +40,12 @@ class BlockSchema extends Schema
             ID::make(),
             Str::make('type')->sortable()->readOnly(),
             ArrayHash::make('content')->sortKeys(),
-            BelongsToMany::make('mediables'),
-            BelongsToMany::make('files'),
+            BelongsToMany::make('mediables')->serializeUsing(
+                static fn ($relation) => $relation->alwaysShowData()
+            ),
+            BelongsToMany::make('files')->serializeUsing(
+                static fn ($relation) => $relation->alwaysShowData()
+            ),
         ];
     }
 

@@ -10,8 +10,8 @@ use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 
 class MediableSchema extends Schema
 {
@@ -34,12 +34,15 @@ class MediableSchema extends Schema
             ID::make(),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
+            Str::make('uuid')->on('media'),
             Str::make('role'),
             Str::make('crop'),
             Str::make('ratio'),
             Str::make('lqip', 'lqip_data'),
             ArrayHash::make('image'),
-            BelongsTo::make('media'),
+            BelongsTo::make('media')->serializeUsing(
+                static fn ($relation) => $relation->alwaysShowData()
+            ),
         ];
     }
 

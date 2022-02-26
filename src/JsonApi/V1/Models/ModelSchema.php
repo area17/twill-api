@@ -19,6 +19,13 @@ abstract class ModelSchema extends Schema
     public const STATUS_DRAFT = 'draft';
 
     /**
+    * The maximum depth of include paths.
+    *
+    * @var int
+    */
+    protected int $maxDepth = 3;
+
+    /**
      * Get the resource fields.
      *
      * @return array
