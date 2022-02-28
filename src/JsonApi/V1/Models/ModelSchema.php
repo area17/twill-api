@@ -2,16 +2,17 @@
 
 namespace A17\Twill\API\JsonApi\V1\Models;
 
-use LaravelJsonApi\Eloquent\Contracts\Paginator;
-use LaravelJsonApi\Eloquent\Fields\DateTime;
-use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\Number;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
-use LaravelJsonApi\Eloquent\Fields\Str;
-use LaravelJsonApi\Eloquent\Filters\Where;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
+use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Fields\Number;
+use LaravelJsonApi\Eloquent\Filters\Where;
+use A17\Twill\API\JsonApi\Filters\WhereSlug;
+use LaravelJsonApi\Eloquent\Fields\DateTime;
+use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Contracts\Paginator;
+use LaravelJsonApi\Eloquent\Pagination\PagePagination;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 
 abstract class ModelSchema extends Schema
 {
@@ -73,6 +74,7 @@ abstract class ModelSchema extends Schema
     {
         return [
             WhereIdIn::make($this),
+            WhereSlug::make('slug')->singular(),
             Where::make('status', 'published')->deserializeUsing(
                 fn ($value) => $value === self::STATUS_PUBLISHED
             ),
