@@ -61,6 +61,7 @@ class MediableResource extends JsonApiResource
     {
         return [
             'role' => $this->role,
+            'crop' => $this->crop,
         ];
     }
 }
