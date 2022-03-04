@@ -8,12 +8,17 @@ JsonApiRoute::server('v1')
     ->namespace('A17\Twill\API\JsonApi\V1')
     ->withoutMiddleware(\Illuminate\Routing\Middleware\SubstituteBindings::class)
     ->resources(function ($server) {
+        $server->resource('related-items', '\\' . JsonApiController::class)->relationships(function ($relationships) {
+            $relationships->hasMany('related');
+        });
+
         $server->resource('mediables', '\\' . JsonApiController::class)->relationships(function ($relationships) {
             $relationships->hasOne('media');
         });
 
         if (config('twill.enabled.block-editor') && config('twill.api.endpoints.blocks')) {
             $server->resource('blocks', '\\' . JsonApiController::class)->relationships(function ($relationships) {
+                $relationships->hasMany('related-items');
                 $relationships->hasMany('mediables');
                 $relationships->hasMany('files');
             });

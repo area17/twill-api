@@ -1,18 +1,17 @@
 <?php
 
-namespace A17\Twill\API\JsonApi\V1\Blocks;
+namespace A17\Twill\API\JsonApi\V1\RelatedItems;
 
-use A17\Twill\Models\Block;
+use A17\Twill\Models\RelatedItem;
 use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 
-class BlockSchema extends Schema
+class RelatedItemSchema extends Schema
 {
 
     /**
@@ -20,7 +19,7 @@ class BlockSchema extends Schema
      *
      * @var string
      */
-    public static string $model = Block::class;
+    public static string $model = RelatedItem::class;
 
     /**
     * The maximum depth of include paths.
@@ -37,16 +36,10 @@ class BlockSchema extends Schema
     public function fields(): array
     {
         return [
-            ID::make(),
-            Str::make('type')->sortable()->readOnly(),
-            ArrayHash::make('content')->sortKeys(),
-            BelongsToMany::make('mediables')->serializeUsing(
-                static fn ($relation) => $relation->alwaysShowData()
-            ),
-            BelongsToMany::make('files')->serializeUsing(
-                static fn ($relation) => $relation->alwaysShowData()
-            ),
-            BelongsToMany::make('related-items'),
+            ID::make('position'),
+            Str::make('browser_name'),
+            // TODO dynamic type/types
+            BelongsTo::make('related')->type('pages'),
         ];
     }
 
