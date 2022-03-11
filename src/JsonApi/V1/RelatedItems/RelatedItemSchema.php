@@ -30,7 +30,7 @@ class RelatedItemSchema extends Schema
     */
     protected int $maxDepth = 2;
 
-    protected $defaultSort = '+position';
+    protected $defaultSort = 'position';
 
     /**
      * Get the resource fields.
