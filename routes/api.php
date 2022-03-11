@@ -22,6 +22,7 @@ JsonApiRoute::server('v1')
                 $relationships->hasMany('related-items');
                 $relationships->hasMany('mediables');
                 $relationships->hasMany('files');
+                $relationships->hasMany('blocks');
             });
         }
 

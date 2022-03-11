@@ -6,9 +6,11 @@ use A17\Twill\Models\Block;
 use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 
@@ -40,6 +42,9 @@ class BlockSchema extends Schema
             ID::make(),
             Str::make('type')->sortable()->readOnly(),
             ArrayHash::make('content')->sortKeys(),
+            Str::make('editorName', 'editor_name'),
+            Number::make('position')->sortable(),
+            HasMany::make('blocks', 'children')->type('blocks'),
             BelongsToMany::make('mediables')->serializeUsing(
                 static fn ($relation) => $relation->alwaysShowData()
             ),
