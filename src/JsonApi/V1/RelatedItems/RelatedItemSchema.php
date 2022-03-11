@@ -8,8 +8,9 @@ use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 
 class RelatedItemSchema extends Schema
 {
@@ -35,12 +36,20 @@ class RelatedItemSchema extends Schema
      */
     public function fields(): array
     {
-        return [
-            ID::make('position'),
+        $fields = [
+            ID::make('id'),
             Str::make('browser_name'),
-            // TODO dynamic type/types
-            BelongsTo::make('related')->type('pages'),
         ];
+
+        $relatedTypes = config('twill-api.related_types');
+
+        if (count($relatedTypes) === 1) {
+            $fields[] = HasOne::make('related')->type(...$relatedTypes);
+        } elseif (count($relatedTypes) > 1) {
+            $fields[] = MorphTo::make('related')->types(...$relatedTypes);
+        }
+
+        return $fields;
     }
 
     /**

@@ -4,18 +4,28 @@ namespace A17\Twill\API;
 
 use A17\Twill\Models\Block;
 use A17\Twill\API\Models\Mediable;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class ServiceProvider extends BaseServiceProvider
+class ServiceProvider extends PackageServiceProvider
 {
+    public function configurePackage(Package $package): void
+    {
+        $package
+            ->name('twill-api')
+            ->hasConfigFile()
+            ->hasRoute('api')
+            ->hasMigration('add_id_column_to_related_table');
+    }
+
     /**
      * Register services.
      *
      * @return void
      */
-    public function register()
+    public function registeringPackage()
     {
-        $this->app->singleton('twill.api', function ($app) {
+        $this->app->singleton('twill-api', function ($app) {
             return $app->make('A17\Twill\API\Controller');
         });
     }
@@ -25,10 +35,8 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function bootingPackage()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/api.php', 'twill.api');
-
         $this->addBlockMediablesDynamicRelationship();
     }
 

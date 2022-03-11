@@ -20,4 +20,9 @@ return [
         'users' => true,
         'settings' => true,
     ],
+
+    'related_types' => [
+        // 'pages',
+        // ...
+    ],
 ];

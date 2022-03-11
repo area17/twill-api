@@ -8,6 +8,16 @@ Provide a read-only API to Twill models and entities.
 composer require area17/twill-api
 ```
 
+### Publish
+
+```
+# Migrations
+php artisan vendor:publish --tag=twill-api-migrations
+
+# Config
+php artisan vendor:publish --tag=twill-api-config
+```
+
 ### Add `SetLocale` middleware
 
 Twill API is using the `api` middleware group provided by default by Laravel. If your content is multilingual and for the API to return the results in the right locale, you need to add this middleware to `app/Http/Kernel.php`.
