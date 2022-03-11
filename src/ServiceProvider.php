@@ -3,6 +3,7 @@
 namespace A17\Twill\API;
 
 use A17\Twill\Models\Block;
+use A17\Twill\Models\Setting;
 use A17\Twill\API\Models\Mediable;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -43,6 +44,13 @@ class ServiceProvider extends PackageServiceProvider
     public function addBlockMediablesDynamicRelationship()
     {
         Block::resolveRelationUsing('mediables', function ($block) {
+            return $block->morphMany(
+                Mediable::class,
+                'mediable',
+            );
+        });
+
+        Setting::resolveRelationUsing('mediables', function ($block) {
             return $block->morphMany(
                 Mediable::class,
                 'mediable',

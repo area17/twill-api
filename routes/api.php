@@ -46,6 +46,8 @@ JsonApiRoute::server('v1')
         }
 
         if (config('twill.enabled.settings') && config('twill-api.endpoints.settings')) {
-            $server->resource('settings', '\\' . JsonApiController::class);
+            $server->resource('settings', '\\' . JsonApiController::class)->relationships(function ($relationships) {
+                $relationships->hasMany('mediables');
+            });
         }
     });
