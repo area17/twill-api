@@ -6,6 +6,7 @@ use A17\Twill\Models\RelatedItem;
 use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
@@ -29,6 +30,8 @@ class RelatedItemSchema extends Schema
     */
     protected int $maxDepth = 2;
 
+    protected $defaultSort = '+position';
+
     /**
      * Get the resource fields.
      *
@@ -38,7 +41,8 @@ class RelatedItemSchema extends Schema
     {
         $fields = [
             ID::make('id'),
-            Str::make('browser_name'),
+            Str::make('browserName', 'browser_name'),
+            Number::make('position')->sortable(),
         ];
 
         $relatedTypes = config('twill-api.related_types');
