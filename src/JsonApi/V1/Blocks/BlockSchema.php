@@ -29,7 +29,7 @@ class BlockSchema extends Schema
     *
     * @var int
     */
-    protected int $maxDepth = 2;
+    protected int $maxDepth = 4;
 
     /**
      * Get the resource fields.
@@ -40,7 +40,7 @@ class BlockSchema extends Schema
     {
         return [
             ID::make(),
-            Str::make('type')->sortable()->readOnly(),
+            Str::make('blockType', 'type')->sortable()->readOnly(),
             ArrayHash::make('content')->sortKeys(),
             Str::make('editorName', 'editor_name'),
             Number::make('position')->sortable(),
