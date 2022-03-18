@@ -21,6 +21,8 @@ class Mediable extends MorphPivot
 
     public function getImageAttribute()
     {
-        return $this->mediable->imageAsArray($this->role, $this->crop);
+        $media = $this->mediable->medias->where('id', $this->media->id)->first();
+
+        return $this->mediable->imageAsArray($this->role, $this->crop, [], $media);
     }
 }
