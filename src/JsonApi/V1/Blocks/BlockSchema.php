@@ -45,7 +45,7 @@ class BlockSchema extends Schema
             Str::make('editorName', 'editor_name'),
             Number::make('position')->sortable(),
             HasMany::make('blocks', 'children')->type('blocks'),
-            BelongsToMany::make('mediables')->serializeUsing(
+            BelongsToMany::make('media', 'mediables')->type('media')->serializeUsing(
                 static fn ($relation) => $relation->alwaysShowData()
             ),
             BelongsToMany::make('files')->serializeUsing(

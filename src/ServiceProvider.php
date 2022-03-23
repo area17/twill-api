@@ -50,8 +50,8 @@ class ServiceProvider extends PackageServiceProvider
             );
         });
 
-        Setting::resolveRelationUsing('mediables', function ($block) {
-            return $block->morphMany(
+        Setting::resolveRelationUsing('mediables', function ($setting) {
+            return $setting->morphMany(
                 Mediable::class,
                 'mediable',
             );

@@ -13,14 +13,10 @@ JsonApiRoute::server('v1')
             $relationships->hasMany('related');
         })->readOnly();
 
-        $server->resource('mediables', '\\' . JsonApiController::class)->relationships(function ($relationships) {
-            $relationships->hasOne('media');
-        });
-
         if (config('twill.enabled.block-editor') && config('twill-api.endpoints.blocks')) {
             $server->resource('blocks', '\\' . JsonApiController::class)->relationships(function ($relationships) {
                 $relationships->hasMany('related-items');
-                $relationships->hasMany('mediables');
+                $relationships->hasMany('media');
                 $relationships->hasMany('files');
                 $relationships->hasMany('blocks');
             });
@@ -48,7 +44,7 @@ JsonApiRoute::server('v1')
 
         if (config('twill.enabled.settings') && config('twill-api.endpoints.settings')) {
             $server->resource('settings', '\\' . JsonApiController::class)->relationships(function ($relationships) {
-                $relationships->hasMany('mediables');
+                $relationships->hasMany('media');
             });
         }
     });

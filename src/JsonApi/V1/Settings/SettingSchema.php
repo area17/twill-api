@@ -37,7 +37,7 @@ class SettingSchema extends Schema
             Str::make('section')->sortable()->readOnly(),
             Str::make('key')->sortable()->readOnly(),
             Str::make('value'),
-            BelongsToMany::make('mediables')->serializeUsing(
+            BelongsToMany::make('media', 'mediables')->type('media')->serializeUsing(
                 static fn ($relation) => $relation->alwaysShowData()
             ),
         ];

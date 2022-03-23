@@ -1,10 +1,11 @@
 <?php
 
-namespace A17\Twill\API\JsonApi\V1\Mediables;
+namespace A17\Twill\API\JsonApi\V1\Medias;
 
+use A17\Twill\Services\FileLibrary\FileService;
 use LaravelJsonApi\Core\Resources\JsonApiResource;
 
-class MediableResource extends JsonApiResource
+class MediaResource extends JsonApiResource
 {
 
     /**
@@ -18,37 +19,19 @@ class MediableResource extends JsonApiResource
         return [
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
+            'uuid' => $this->media->uuid,
+            'filename' => $this->media->filename,
             'role' => $this->role,
             'crop' => $this->crop,
             'ratio' => $this->ratio,
             'lqip' => $this->lqip_data,
-            'image' => $this->image,
-        ];
-    }
-
-    /**
-     * Get the resource's relationships.
-     *
-     * @param \Illuminate\Http\Request|null $request
-     * @return iterable
-     */
-    public function relationships($request): iterable
-    {
-        return [
-            $this->relation('media')->alwaysShowData(),
-        ];
-    }
-
-    /**
-     * Get the resource's meta.
-     *
-     * @param \Illuminate\Http\Request|null $request
-     * @return iterable
-     */
-    public function meta($request): iterable
-    {
-        return [
-            'uuid' => $this->media->uuid,
+            'src' => $this->image['src'],
+            'originalSrc' => FileService::getUrl($this->media->uuid),
+            'width' => $this->image['width'],
+            'height' => $this->image['height'],
+            'alt' => $this->image['alt'],
+            'caption' => $this->image['caption'],
+            'video' => $this->image['video'],
         ];
     }
 
@@ -62,6 +45,7 @@ class MediableResource extends JsonApiResource
         return [
             'role' => $this->role,
             'crop' => $this->crop,
+            'uuid' => $this->media->uuid,
         ];
     }
 }

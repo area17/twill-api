@@ -51,7 +51,7 @@ abstract class ModelSchema extends Schema
         }
 
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasMedias')) {
-            $fields[] = BelongsToMany::make('mediables');
+            $fields[] = BelongsToMany::make('media', 'mediables')->type('media');
         }
 
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasFiles')) {
