@@ -31,7 +31,9 @@ JsonApiRoute::server('v1')
         }
 
         if (config('twill.enabled.buckets') && config('twill-api.endpoints.features')) {
-            $server->resource('features', '\\' . JsonApiController::class);
+            $server->resource('features', '\\' . JsonApiController::class)->relationships(function ($relationships) {
+                $relationships->hasMany('featured');
+            })->readOnly();
         }
 
         if (config('twill-api.endpoints.tags')) {

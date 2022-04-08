@@ -25,4 +25,10 @@ return [
         // 'pages',
         // ...
     ],
+
+    'featured_types' => [
+        // 'pages',
+        // ...
+    ],
+
 ];
