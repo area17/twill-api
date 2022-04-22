@@ -7,6 +7,7 @@ use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Number;
+use LaravelJsonApi\Eloquent\Filters\Where;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
@@ -64,6 +65,7 @@ class BlockSchema extends Schema
     {
         return [
             WhereIdIn::make($this),
+            Where::make('blockType', 'type'),
         ];
     }
 
