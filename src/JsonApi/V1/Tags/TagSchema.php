@@ -5,13 +5,13 @@ namespace A17\Twill\API\JsonApi\V1\Tags;
 use A17\Twill\Models\Tag;
 use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use Illuminate\Support\Str as StrHelper;
+use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Filters\WhereIn;
+use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
-use Illuminate\Support\Str as StrHelper;
 
 class TagSchema extends Schema
 {
@@ -52,6 +52,7 @@ class TagSchema extends Schema
         return [
             WhereIdIn::make($this),
             WhereIn::make('namespace')->delimiter(','),
+            WhereIn::make('slug'),
         ];
     }
 
