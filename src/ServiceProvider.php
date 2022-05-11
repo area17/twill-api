@@ -2,6 +2,7 @@
 
 namespace A17\Twill\API;
 
+use A17\Twill\API\Console\MakeSchemaCommand;
 use A17\Twill\Models\Block;
 use A17\Twill\Models\Setting;
 use A17\Twill\API\Models\Mediable;
@@ -16,7 +17,8 @@ class ServiceProvider extends PackageServiceProvider
             ->name('twill-api')
             ->hasConfigFile()
             ->hasRoute('api')
-            ->hasMigration('add_id_column_to_related_table');
+            ->hasMigration('add_id_column_to_related_table')
+            ->hasCommand(MakeSchemaCommand::class);
     }
 
     /**
