@@ -38,8 +38,6 @@ abstract class ModelSchema extends Schema
     {
         $fields = [
             ID::make(),
-            DateTime::make('createdAt')->sortable()->readOnly(),
-            DateTime::make('updatedAt')->sortable()->readOnly(),
         ];
 
         if ($this->statusAttribute) {
@@ -78,13 +76,18 @@ abstract class ModelSchema extends Schema
      */
     public function filters(): array
     {
-        return [
+        $filters = [
             WhereIdIn::make($this),
             WhereSlug::make('slug')->singular(),
-            Where::make('status', 'published')->deserializeUsing(
-                fn ($value) => $value === self::STATUS_PUBLISHED
-            ),
         ];
+
+        if ($this->statusAttribute) {
+            $filters[] = Where::make('status', 'published')->deserializeUsing(
+                fn ($value) => $value === self::STATUS_PUBLISHED
+            );
+        }
+
+        return $filters;
     }
 
     /**
