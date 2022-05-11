@@ -17,7 +17,10 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 abstract class ModelSchema extends Schema
 {
     public const STATUS_PUBLISHED = 'published';
+
     public const STATUS_DRAFT = 'draft';
+
+    protected bool $statusAttribute = true;
 
     /**
     * The maximum depth of include paths.
@@ -37,10 +40,13 @@ abstract class ModelSchema extends Schema
             ID::make(),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
-            Str::make('status', 'published')->serializeUsing(
-                static fn ($value) => $value ? self::STATUS_PUBLISHED : self::STATUS_DRAFT
-            ),
         ];
+
+        if ($this->statusAttribute) {
+            $fields[] = Str::make('status', 'published')->serializeUsing(
+                static fn ($value) => $value ? self::STATUS_PUBLISHED : self::STATUS_DRAFT
+            );
+        }
 
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasPosition')) {
             $fields[] = Number::make('position')->sortable();
