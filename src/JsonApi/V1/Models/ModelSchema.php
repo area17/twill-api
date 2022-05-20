@@ -50,7 +50,9 @@ abstract class ModelSchema extends Schema
             $fields[] = Number::make('position')->sortable();
         }
 
-        if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasBlocks')) {
+        if (classHasTrait($this->model(), 'A17\Twill\API\Models\Traits\HasChildBlocks')) {
+            $fields[] = BelongsToMany::make('blocks', 'parentBlocks')->type('blocks');
+        } elseif (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasBlocks')) {
             $fields[] = BelongsToMany::make('blocks');
         }
 

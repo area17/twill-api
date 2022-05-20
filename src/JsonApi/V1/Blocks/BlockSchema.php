@@ -44,6 +44,7 @@ class BlockSchema extends Schema
             Str::make('blockType', 'type')->sortable()->readOnly(),
             ArrayHash::make('content')->sortKeys(),
             Str::make('editorName', 'editor_name'),
+            Str::make('childKey', 'child_key'),
             Number::make('position')->sortable(),
             HasMany::make('blocks', 'children')->type('blocks'),
             BelongsToMany::make('media', 'mediables')->type('media')->serializeUsing(

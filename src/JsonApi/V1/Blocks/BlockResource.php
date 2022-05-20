@@ -19,7 +19,8 @@ class BlockResource extends JsonApiResource
     {
         return [
             'blockType' => $this->resource->type,
-            'editorName' => $this->resource->editorName,
+            'editorName' => $this->resource->editor_name,
+            'childKey' => $this->resource->child_key,
             'position' => $this->resource->position,
             'content' => $this->content(),
         ];
@@ -31,7 +32,7 @@ class BlockResource extends JsonApiResource
 
         $version = Str::title(config('twill-api.version'));
 
-        $blockContent = "BlockContent" . Str::title($this->resource->type);
+        $blockContent = "BlockContent" . Str::studly($this->resource->type);
 
         $classname = "App\\$namespace\\$version\\Blocks\\$blockContent";
 
