@@ -80,13 +80,16 @@ abstract class ModelSchema extends Schema
     {
         $filters = [
             WhereIdIn::make($this),
-            WhereSlug::make('slug')->singular(),
         ];
 
         if ($this->statusAttribute) {
             $filters[] = Where::make('status', 'published')->deserializeUsing(
                 fn ($value) => $value === self::STATUS_PUBLISHED
             );
+        }
+
+        if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasSlug')) {
+            $filters[] = WhereSlug::make('slug')->singular();
         }
 
         return $filters;
