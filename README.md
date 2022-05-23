@@ -1,9 +1,11 @@
 # Twill API
 
 Provide a read-only API to Twill models and entities.
+
 ## Installation
 
 ### Install the `twill-api` package
+
 ```
 composer require area17/twill-api
 ```
@@ -35,25 +37,17 @@ You can query the API by adding the locale query string to the url. For example 
     ];
 ```
 
-### Create the resource controller and register the endpoints
+### Create the resource
 
- This artisan command will create `app/Http/Controllers/API/BookController.php` and will assume its model to be `App\Models\Book`.
+To create a basic schema for a new resource (model), use the artisan command `twill:make:schema`. Pass the name of the Twill module as the argument.
 
 ```bash
-php artisan twill-api:make:controller books
+php artisan twill:make:schema snippets
 ```
 
-In `routes/api.php`, you can register you modules with the macro `moduleResource`.
+This command will create `app/TwillApi/V1/Snippets/SnippetSchema.php`. The command will display a few instructions to register the new schema with the API server and how to declare the endpoint in you `routes/api.php`.
 
-```php
-Route::moduleResource('books');
-```
-
-
-Two endpoints are now available:
-
-- `/api/v1/books`
-- `/api/v1/books/{id}`
+For what is available from there, consult the Laravel JSON:API documentaiton under the [Schemas](https://laraveljsonapi.io/docs/2.0/schemas/) section.
 
 ## Endpoints
 
@@ -62,6 +56,8 @@ List of available endpoints:
 - `/api/v1`
 - `/api/v1/blocks`
 - `/api/v1/blocks/{id}`
+- `/api/v1/related-items`
+- `/api/v1/related-items/{id}`
 - `/api/v1/files`
 - `/api/v1/files/{id}`
 - `/api/v1/media`
