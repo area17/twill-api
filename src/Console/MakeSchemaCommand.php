@@ -59,7 +59,7 @@ class MakeSchemaCommand extends Command
 
             $singular = $this->getSingularClassName($this->argument('name'));
             $plural = $this->getPluralClassName($this->argument('name'));
-            $resource = Str::lower($plural);
+            $resource = Str::kebab($plural);
             $schema = $singular . 'Schema';
 
             $this->info("{$path} created\n");
