@@ -19,15 +19,15 @@ JsonApiRoute::server('v1')
                 $relationships->hasMany('media');
                 $relationships->hasMany('files');
                 $relationships->hasMany('blocks');
-            });
+            })->readOnly();
         }
 
         if (config('twill.enabled.media-library') && config('twill-api.endpoints.media')) {
-            $server->resource('media', '\\' . JsonApiController::class);
+            $server->resource('media', '\\' . JsonApiController::class)->readOnly();
         }
 
         if (config('twill.enabled.file-library') && config('twill-api.endpoints.files')) {
-            $server->resource('files', '\\' . JsonApiController::class);
+            $server->resource('files', '\\' . JsonApiController::class)->readOnly();
         }
 
         if (config('twill.enabled.buckets') && config('twill-api.endpoints.features')) {
@@ -37,16 +37,16 @@ JsonApiRoute::server('v1')
         }
 
         if (config('twill-api.endpoints.tags')) {
-            $server->resource('tags', '\\' . JsonApiController::class);
+            $server->resource('tags', '\\' . JsonApiController::class)->readOnly();
         }
 
         if (config('twill.enabled.users-management') && config('twill-api.endpoints.users')) {
-            $server->resource('users', '\\' . JsonApiController::class);
+            $server->resource('users', '\\' . JsonApiController::class)->readOnly();
         }
 
         if (config('twill.enabled.settings') && config('twill-api.endpoints.settings')) {
             $server->resource('settings', '\\' . JsonApiController::class)->relationships(function ($relationships) {
                 $relationships->hasMany('media');
-            });
+            })->readOnly();
         }
     });
