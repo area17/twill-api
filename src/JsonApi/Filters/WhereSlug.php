@@ -72,7 +72,12 @@ class WhereSlug implements Filter
             return $query
                 ->where('active', 1)
                 ->where('locale', app()->getLocale())
-                ->where($query->getModel()->qualifyColumn($column), $deserializedValue);
+                ->when(is_array($deserializedValue), function ($query) use ($column, $deserializedValue) {
+                    $query->whereIn($query->getModel()->qualifyColumn($column), $deserializedValue);
+                })
+                ->when(is_string($deserializedValue), function ($query) use ($column, $deserializedValue) {
+                    $query->where($query->getModel()->qualifyColumn($column), $deserializedValue);
+                });
         });
     }
 }

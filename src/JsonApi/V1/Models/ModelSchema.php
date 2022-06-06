@@ -8,7 +8,6 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use A17\Twill\API\JsonApi\Filters\WhereSlug;
-use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
@@ -90,6 +89,7 @@ abstract class ModelSchema extends Schema
 
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasSlug')) {
             $filters[] = WhereSlug::make('slug')->singular();
+            $filters[] = WhereSlug::make('slugs', 'slug');
         }
 
         return $filters;
