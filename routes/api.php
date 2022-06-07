@@ -9,9 +9,11 @@ JsonApiRoute::server('v1')
     ->namespace('A17\Twill\API\JsonApi\V1')
     ->withoutMiddleware(\Illuminate\Routing\Middleware\SubstituteBindings::class)
     ->resources(function ($server) {
-        $server->resource('related-items', '\\' . JsonApiController::class)->relationships(function ($relationships) {
-            $relationships->hasMany('related');
-        })->readOnly();
+        if (!empty(config('twill-api.related_types'))) {
+            $server->resource('related-items', '\\' . JsonApiController::class)->relationships(function ($relationships) {
+                $relationships->hasMany('related');
+            })->readOnly();
+        }
 
         if (config('twill.enabled.block-editor') && config('twill-api.endpoints.blocks')) {
             $server->resource('blocks', '\\' . JsonApiController::class)->relationships(function ($relationships) {
@@ -30,7 +32,7 @@ JsonApiRoute::server('v1')
             $server->resource('files', '\\' . JsonApiController::class)->readOnly();
         }
 
-        if (config('twill.enabled.buckets') && config('twill-api.endpoints.features')) {
+        if (config('twill.enabled.buckets') && config('twill-api.endpoints.features') && !empty(config('twill-api.featured_types'))) {
             $server->resource('features', '\\' . JsonApiController::class)->relationships(function ($relationships) {
                 $relationships->hasMany('featured');
             })->readOnly();
