@@ -16,6 +16,10 @@ class MediaResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
+        $metadata = json_decode($this->metadatas, true) ?? [];
+        $extraMetadata = collect($metadata)
+            ->except(['video', 'altText', 'caption'])->toArray();
+
         return [
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
@@ -32,6 +36,7 @@ class MediaResource extends JsonApiResource
             'alt' => $this->image['alt'],
             'caption' => $this->image['caption'],
             'video' => $this->image['video'],
+            'metadata' => $extraMetadata,
         ];
     }
 

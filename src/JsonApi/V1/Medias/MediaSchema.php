@@ -50,6 +50,7 @@ class MediaSchema extends ProxySchema
             Str::make('alt'),
             Str::make('caption'),
             Str::make('video'),
+            ArrayHash::make('metadata', 'metadatas'),
         ];
     }
 
