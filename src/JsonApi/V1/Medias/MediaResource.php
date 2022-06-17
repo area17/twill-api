@@ -41,6 +41,20 @@ class MediaResource extends JsonApiResource
     }
 
     /**
+     * Get meta for the resource.
+     *
+     * @return array
+     */
+    public function meta($request): iterable
+    {
+        return [
+            'role' => $this->role,
+            'crop' => $this->crop,
+            'uuid' => $this->media->uuid,
+        ];
+    }
+
+    /**
      * Get meta for the resource's identifier.
      *
      * @return array
