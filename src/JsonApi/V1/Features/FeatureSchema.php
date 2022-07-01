@@ -27,6 +27,13 @@ class FeatureSchema extends Schema
     public static string $model = Feature::class;
 
     /**
+    * The maximum depth of include paths.
+    *
+    * @var int
+    */
+    protected int $maxDepth = 4;
+
+    /**
      * Get the resource fields.
      *
      * @return array
