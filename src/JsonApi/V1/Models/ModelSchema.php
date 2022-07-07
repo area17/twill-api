@@ -60,7 +60,7 @@ abstract class ModelSchema extends Schema
         }
 
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasFiles')) {
-            $fields[] = BelongsToMany::make('files');
+            $fields[] = BelongsToMany::make('files', 'fileables')->type('files');
         }
 
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasSlug')) {

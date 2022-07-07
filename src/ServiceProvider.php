@@ -3,6 +3,7 @@
 namespace A17\Twill\API;
 
 use A17\Twill\API\Console\MakeSchemaCommand;
+use A17\Twill\API\Models\Fileable;
 use A17\Twill\Models\Block;
 use A17\Twill\Models\Setting;
 use A17\Twill\API\Models\Mediable;
@@ -41,6 +42,7 @@ class ServiceProvider extends PackageServiceProvider
     public function bootingPackage()
     {
         $this->addBlockMediablesDynamicRelationship();
+        $this->addBlockFileablesDynamicRelationship();
     }
 
     public function addBlockMediablesDynamicRelationship()
@@ -56,6 +58,23 @@ class ServiceProvider extends PackageServiceProvider
             return $setting->morphMany(
                 Mediable::class,
                 'mediable',
+            );
+        });
+    }
+
+    public function addBlockFileablesDynamicRelationship()
+    {
+        Block::resolveRelationUsing('fileables', function ($block) {
+            return $block->morphMany(
+                Fileable::class,
+                'fileable',
+            );
+        });
+
+        Setting::resolveRelationUsing('fileables', function ($setting) {
+            return $setting->morphMany(
+                Fileable::class,
+                'fileable',
             );
         });
     }
