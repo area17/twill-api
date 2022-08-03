@@ -42,4 +42,17 @@ class BlockResource extends JsonApiResource
 
         return $content ?? [];
     }
+
+    /**
+     * Get the resource's meta.
+     *
+     * @param \Illuminate\Http\Request|null $request
+     * @return iterable
+     */
+    public function meta($request): iterable
+    {
+        return [
+            'browsers' => $this->content['browsers'] ?? null,
+        ];
+    }
 }
