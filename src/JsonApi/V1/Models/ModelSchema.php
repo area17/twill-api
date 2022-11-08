@@ -2,11 +2,12 @@
 
 namespace A17\Twill\API\JsonApi\V1\Models;
 
+use A17\Twill\API\Constants\Status;
+use A17\Twill\API\JsonApi\Filters\WhereStatus;
 use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Number;
-use LaravelJsonApi\Eloquent\Filters\Where;
 use A17\Twill\API\JsonApi\Filters\WhereSlug;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
@@ -15,10 +16,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 
 abstract class ModelSchema extends Schema
 {
-    public const STATUS_PUBLISHED = 'published';
-
-    public const STATUS_DRAFT = 'draft';
-
     protected bool $statusAttribute = true;
 
     /**
@@ -41,7 +38,7 @@ abstract class ModelSchema extends Schema
 
         if ($this->statusAttribute) {
             $fields[] = Str::make('status', 'published')->serializeUsing(
-                static fn ($value) => $value ? self::STATUS_PUBLISHED : self::STATUS_DRAFT
+                static fn ($value) => $value ? Status::PUBLISHED : Status::DRAFT
             );
         }
 
@@ -82,9 +79,7 @@ abstract class ModelSchema extends Schema
         ];
 
         if ($this->statusAttribute) {
-            $filters[] = Where::make('status', 'published')->deserializeUsing(
-                fn ($value) => $value === self::STATUS_PUBLISHED
-            );
+            $filters[] = WhereStatus::make('status', 'published');
         }
 
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasSlug')) {
