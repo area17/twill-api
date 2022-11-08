@@ -21,7 +21,7 @@ class {{ CLASSNAME }}Schema extends ModelSchema
      *
      * @var boolean
      */
-    protected bool $statusAttribute = true;
+    protected bool $publishedAttribute = true;
 
     /**
      * Get the resource fields.

@@ -3,7 +3,8 @@
 namespace A17\Twill\API\JsonApi\V1\Models;
 
 use A17\Twill\API\Constants\Status;
-use A17\Twill\API\JsonApi\Filters\WhereStatus;
+use LaravelJsonApi\Eloquent\Fields\Boolean;
+use LaravelJsonApi\Eloquent\Filters\Scope;
 use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
@@ -16,7 +17,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;
 
 abstract class ModelSchema extends Schema
 {
-    protected bool $statusAttribute = true;
+    protected bool $publishedAttribute = true;
 
     /**
     * The maximum depth of include paths.
@@ -36,10 +37,8 @@ abstract class ModelSchema extends Schema
             ID::make(),
         ];
 
-        if ($this->statusAttribute) {
-            $fields[] = Str::make('status', 'published')->serializeUsing(
-                static fn ($value) => $value ? Status::PUBLISHED : Status::DRAFT
-            );
+        if ($this->publishedAttribute) {
+            $fields[] = Boolean::make('published');
         }
 
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasPosition')) {
@@ -78,8 +77,8 @@ abstract class ModelSchema extends Schema
             WhereIdIn::make($this),
         ];
 
-        if ($this->statusAttribute) {
-            $filters[] = WhereStatus::make('status', 'published');
+        if ($this->publishedAttribute) {
+            $filters[] = Scope::make('published')->asBoolean();
         }
 
         if (classHasTrait($this->model(), 'A17\Twill\Models\Behaviors\HasSlug')) {
