@@ -28,7 +28,7 @@ class RelatedItemSchema extends Schema
     *
     * @var int
     */
-    protected int $maxDepth = 2;
+    protected int $maxDepth = 4;
 
     protected $defaultSort = 'position';
 
