@@ -32,6 +32,8 @@ class RelatedItemSchema extends Schema
 
     protected $defaultSort = 'position';
 
+    protected array $with = ['related'];
+
     /**
      * Get the resource fields.
      *
