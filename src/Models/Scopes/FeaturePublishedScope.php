@@ -20,7 +20,7 @@ class FeaturePublishedScope implements Scope
     {
         $builder->whereHas('featured', function ($query) {
             $query->when(
-                Schema::hasColumn($query->getModel()->getTable(), 'published'),
+                $query->getModel()->isFillable('published'),
                 function ($query) {
                     $query->where('published', true);
                 }
