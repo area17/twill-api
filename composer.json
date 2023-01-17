@@ -9,7 +9,7 @@
   ],
   "require": {
     "php": "^7.4|^8.0",
-    "area17/twill": "^2.8.2",
+    "area17/twill": "^2.8.2|3.*",
     "illuminate/support": "^9.12",
     "laravel-json-api/laravel": "^2.3",
     "spatie/laravel-package-tools": "^1.11"
