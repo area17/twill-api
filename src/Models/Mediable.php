@@ -9,6 +9,8 @@ class Mediable extends MorphPivot
 {
     protected $table = 'mediables';
 
+    protected $with = ['media', 'mediable'];
+
     public function media()
     {
         return $this->belongsTo(Media::class);
