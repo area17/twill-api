@@ -29,14 +29,6 @@
       "A17\\Twill\\API\\": "src"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests",
-      "App\\": "tests/dummy/app",
-      "Database\\Factories\\": "tests/dummy/database/factories/",
-      "Database\\Seeders\\": "tests/dummy/database/seeders/"
-    }
-  },
   "scripts": {
     "post-autoload-dump": [
       "@php ./vendor/bin/testbench package:discover --ansi"
