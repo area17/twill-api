@@ -2,13 +2,13 @@
 
 return [
 
-    'version' => 'v1',
+    'prefix' => 'api',
+
+    'namespace' => 'Controllers\TwillApi\V1',
 
     'middleware' => [
         'api'
     ],
-
-    'route_prefix' => 'api',
 
     'endpoints' => [
         'index' => true,
