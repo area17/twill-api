@@ -4,7 +4,9 @@ return [
 
     'prefix' => 'api',
 
-    'namespace' => 'Controllers\TwillApi\V1',
+    'version' => 'v1',
+
+    'namespace' => '\App\Http\Controllers\TwillApi\V1',
 
     'middleware' => [
         'api'

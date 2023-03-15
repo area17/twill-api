@@ -1,6 +1,6 @@
 <?php
 
-namespace App\TwillApi\V1\{{ NAMESPACE }};
+namespace App\{{ API_NAMESPACE }}\{{ API_VERSION }}\{{ NAMESPACE }};
 
 use App\Models\{{ MODELNAME }};
 use LaravelJsonApi\Eloquent\Fields\Str;

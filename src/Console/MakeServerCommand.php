@@ -7,21 +7,21 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem;
 
-class MakeSchemaCommand extends Command
+class MakeServerCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'twill:make:schema {name} {version=v1}';
+    protected $signature = 'twill:make:server {version=v1}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate a JSON:API schema';
+    protected $description = 'Generate a JSON:API server class';
 
     /**
      * Filesystem instance
@@ -70,62 +70,16 @@ class MakeSchemaCommand extends Command
 
         if (!$this->files->exists($path)) {
             $this->files->put($path, $contents);
-
-            $singular = $this->getSingularClassName($this->argument('name'));
-            $plural = $this->getPluralClassName($this->argument('name'));
-            $resource = Str::kebab($plural);
-            $schema = $singular . 'Schema';
-
             $this->info("{$path} created\n");
-
-            $this->info("Add to app/$this->apiNamespace\\".Str::upper($this->version)."\\Server.php:");
-            $this->info("\nprotected function allSchemas(): array");
-            $this->info("{");
-            $this->info("    return [");
-            $this->info("        // ...");
-            $this->info("        $plural\\$schema::class,");
-            $this->info("    ];");
-            $this->info("}");
-
-            $this->info("\nAdd to routes/api.php:");
-
-            $this->info("\nJsonApiRoute::server('$this->version')");
-            $this->info("    ->prefix('$this->version')");
-            $this->info("    ->resources(function (\$server) {");
-            $this->info("        \$server->resource('$resource', LaravelJsonApi\Laravel\Http\Controllers\JsonApiController::class)");
-            $this->info("            ->relationships(function (\$relationships) {");
-            $this->info("                // \$relationships->hasMany('blocks');");
-            $this->info("                // \$relationships->hasMany('media');");
-            $this->info("                // ...");
-            $this->info("            });");
-            $this->info("    });");
+            $this->info("Don't forget to add the server to `config/jsonapi.php`:\n");
+            $this->info("'servers' => [");
+            $this->info("    '$this->version' => \App\\$this->apiNamespace\\".Str::upper($this->version)."\\Server::class,");
+            $this->info("],");
         } else {
             $this->info("{$path} already exits");
         }
 
         return 0;
-    }
-
-    /**
-     * Return the Singular Capitalize Name
-     *
-     * @param $name
-     * @return string
-     */
-    public function getSingularClassName($name)
-    {
-        return ucwords(Pluralizer::singular($name));
-    }
-
-    /**
-     * Return the Plural Capitalize Name
-     *
-     * @param $name
-     * @return string
-     */
-    public function getPluralClassName($name)
-    {
-        return ucwords(Pluralizer::plural($name));
     }
 
     /**
@@ -135,7 +89,7 @@ class MakeSchemaCommand extends Command
      */
     public function getStubPath()
     {
-        return __DIR__ . '/../../stubs/ModelSchema.stub';
+        return __DIR__ . '/../../stubs/Server.stub';
     }
 
     /**
@@ -146,11 +100,9 @@ class MakeSchemaCommand extends Command
     public function getStubVariables()
     {
         return [
-            'API_NAMESPACE' => $this->apiNamespace,
+            'API_NAMESPACE' => config('jsonapi.namespace'),
             'API_VERSION' => Str::upper($this->version),
-            'NAMESPACE' => $this->getPluralClassName($this->argument('name')),
-            'CLASSNAME' => $this->getSingularClassName($this->argument('name')),
-            'MODELNAME' => $this->getSingularClassName($this->argument('name')),
+            'VERSION' => $this->version,
         ];
     }
 
@@ -192,7 +144,7 @@ class MakeSchemaCommand extends Command
      */
     public function getSourceFilePath()
     {
-        return base_path('app/'. $this->apiNamespace . '/'.Str::upper($this->version)) .'/' . $this->getPluralClassName($this->argument('name')) . '/' . $this->getSingularClassName($this->argument('name')) . 'Schema.php';
+        return base_path("app/$this->apiNamespace/".Str::upper($this->version).'/Server.php');
     }
 
     /**

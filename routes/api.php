@@ -3,13 +3,14 @@
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
-if (config('jsonapi.servers.v1')) {
-    $prefix = implode('/', [
-        config('twill-api.prefix'),
-        'v1',
-    ]);
+$version = config('twill-api.version');
+$prefix = implode('/', [
+    config('twill-api.prefix'),
+    $version,
+]);
 
-    JsonApiRoute::server('v1')
+if (config("jsonapi.servers.$version")) {
+    JsonApiRoute::server($version)
         ->prefix($prefix)
         ->namespace(config('twill-api.namespace'))
         ->middleware(...config('twill-api.middleware'))
