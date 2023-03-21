@@ -147,6 +147,11 @@ This package provides these endpoints along with their schema:
 
 (to do)
 
+```bash
+php artisan twill:make:block-content text
+php artisan twill:make:block-content my-block-name
+```
+
 ### Browser fields (related items)
 
 (to do)

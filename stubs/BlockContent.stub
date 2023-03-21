@@ -1,0 +1,20 @@
+<?php
+
+namespace App\{{ API_NAMESPACE }}\{{ API_VERSION }}\Blocks;
+
+use A17\Twill\API\JsonApi\V1\Blocks\BlockContent;
+
+class BlockContent{{ BLOCK_NAME }} extends BlockContent
+{
+    /**
+     * Get the resource's content attributes.
+     *
+     * @return iterable
+     */
+    public function content(): iterable
+    {
+        return [
+            // @TODO
+        ];
+    }
+}

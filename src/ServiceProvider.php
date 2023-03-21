@@ -2,6 +2,7 @@
 
 namespace A17\Twill\API;
 
+use A17\Twill\API\Console\MakeBlockContentCommand;
 use A17\Twill\API\Console\MakeSchemaCommand;
 use A17\Twill\API\Console\MakeServerCommand;
 use A17\Twill\API\Models\Fileable;
@@ -22,7 +23,8 @@ class ServiceProvider extends PackageServiceProvider
             ->hasMigration('add_id_column_to_related_table')
             ->hasMigration('change_featured_id_column_in_features_table')
             ->hasCommand(MakeSchemaCommand::class)
-            ->hasCommand(MakeServerCommand::class);
+            ->hasCommand(MakeServerCommand::class)
+            ->hasCommand(MakeBlockContentCommand::class);
     }
 
     /**
