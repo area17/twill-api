@@ -36,9 +36,6 @@ class TagSchema extends Schema
             DateTime::make('updatedAt')->sortable()->readOnly()->hidden(),
             Str::make('slug'),
             Str::make('name'),
-            Str::make('namespace')->serializeUsing(
-                static fn ($value) => StrHelper::kebab($value)
-            ),
         ];
     }
 

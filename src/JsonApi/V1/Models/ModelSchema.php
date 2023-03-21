@@ -155,6 +155,10 @@ abstract class ModelSchema extends Schema
             );
         }
 
+        if (classHasTrait($this->model(), 'Cartalyst\Tags\TaggableTrait')) {
+            $fields[] = BelongsToMany::make('tags');
+        }
+
         return $fields;
     }
 
