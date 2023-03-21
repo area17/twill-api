@@ -2,6 +2,7 @@
 
 namespace A17\Twill\API\Console;
 
+use A17\Twill\API\Console\Traits\HasStubs;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Pluralizer;
@@ -9,6 +10,8 @@ use Illuminate\Filesystem\Filesystem;
 
 class MakeSchemaCommand extends Command
 {
+    use HasStubs;
+
     /**
      * The name and signature of the console command.
      *
@@ -41,6 +44,8 @@ class MakeSchemaCommand extends Command
      */
     protected $version;
 
+    protected string $relativeStubPath = '/../../stubs/ModelSchema.stub';
+
     /**
      * Create a new command instance.
      *
@@ -50,7 +55,7 @@ class MakeSchemaCommand extends Command
     {
         parent::__construct();
 
-        $this->files = $files;
+        $this->bootHasStubs($files);
     }
 
     /**
@@ -63,14 +68,9 @@ class MakeSchemaCommand extends Command
         $this->apiNamespace = config('jsonapi.namespace');
         $this->version = $this->argument('version');
         $path = $this->getSourceFilePath();
+        $created = $this->create();
 
-        $this->makeDirectory(dirname($path));
-
-        $contents = $this->getSourceFile();
-
-        if (!$this->files->exists($path)) {
-            $this->files->put($path, $contents);
-
+        if ($created) {
             $singular = $this->getSingularClassName($this->argument('name'));
             $plural = $this->getPluralClassName($this->argument('name'));
             $resource = Str::kebab($plural);
@@ -129,16 +129,6 @@ class MakeSchemaCommand extends Command
     }
 
     /**
-     * Return the stub file path
-     *
-     * @return string
-     */
-    public function getStubPath()
-    {
-        return __DIR__ . '/../../stubs/ModelSchema.stub';
-    }
-
-    /**
      * Map the stub variables present in stub to its value
      *
      * @return array
@@ -155,37 +145,6 @@ class MakeSchemaCommand extends Command
     }
 
     /**
-     * Get the stub path and the stub variables
-     *
-     * @return bool|mixed|string
-     */
-    public function getSourceFile()
-    {
-        return $this->getStubContents(
-            $this->getStubPath(),
-            $this->getStubVariables()
-        );
-    }
-
-    /**
-     * Replace the stub variables(key) with the desire value
-     *
-     * @param $stub
-     * @param array $stubVariables
-     * @return bool|mixed|string
-     */
-    public function getStubContents($stub, $stubVariables = [])
-    {
-        $contents = file_get_contents($stub);
-
-        foreach ($stubVariables as $search => $replace) {
-            $contents = str_replace('{{ '.$search.' }}', $replace, $contents);
-        }
-
-        return $contents;
-    }
-
-    /**
      * Get the full path of generate class
      *
      * @return string
@@ -193,20 +152,5 @@ class MakeSchemaCommand extends Command
     public function getSourceFilePath()
     {
         return base_path('app/'. $this->apiNamespace . '/'.Str::upper($this->version)) .'/' . $this->getPluralClassName($this->argument('name')) . '/' . $this->getSingularClassName($this->argument('name')) . 'Schema.php';
-    }
-
-    /**
-     * Build the directory for the class if necessary.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    protected function makeDirectory($path)
-    {
-        if (! $this->files->isDirectory($path)) {
-            $this->files->makeDirectory($path, 0777, true, true);
-        }
-
-        return $path;
     }
 }

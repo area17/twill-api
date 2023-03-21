@@ -2,13 +2,15 @@
 
 namespace A17\Twill\API\Console;
 
+use A17\Twill\API\Console\Traits\HasStubs;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem;
 
 class MakeServerCommand extends Command
 {
+    use HasStubs;
+
     /**
      * The name and signature of the console command.
      *
@@ -41,6 +43,8 @@ class MakeServerCommand extends Command
      */
     protected $version;
 
+    protected string $relativeStubPath = '/../../stubs/Server.stub';
+
     /**
      * Create a new command instance.
      *
@@ -50,7 +54,7 @@ class MakeServerCommand extends Command
     {
         parent::__construct();
 
-        $this->files = $files;
+        $this->bootHasStubs($files);
     }
 
     /**
@@ -63,13 +67,9 @@ class MakeServerCommand extends Command
         $this->apiNamespace = config('jsonapi.namespace');
         $this->version = $this->argument('version');
         $path = $this->getSourceFilePath();
+        $created = $this->create();
 
-        $this->makeDirectory(dirname($path));
-
-        $contents = $this->getSourceFile();
-
-        if (!$this->files->exists($path)) {
-            $this->files->put($path, $contents);
+        if ($created) {
             $this->info("{$path} created\n");
             $this->info("Don't forget to add the server to `config/jsonapi.php`:\n");
             $this->info("'servers' => [");
@@ -80,16 +80,6 @@ class MakeServerCommand extends Command
         }
 
         return 0;
-    }
-
-    /**
-     * Return the stub file path
-     *
-     * @return string
-     */
-    public function getStubPath()
-    {
-        return __DIR__ . '/../../stubs/Server.stub';
     }
 
     /**
@@ -107,37 +97,6 @@ class MakeServerCommand extends Command
     }
 
     /**
-     * Get the stub path and the stub variables
-     *
-     * @return bool|mixed|string
-     */
-    public function getSourceFile()
-    {
-        return $this->getStubContents(
-            $this->getStubPath(),
-            $this->getStubVariables()
-        );
-    }
-
-    /**
-     * Replace the stub variables(key) with the desire value
-     *
-     * @param $stub
-     * @param array $stubVariables
-     * @return bool|mixed|string
-     */
-    public function getStubContents($stub, $stubVariables = [])
-    {
-        $contents = file_get_contents($stub);
-
-        foreach ($stubVariables as $search => $replace) {
-            $contents = str_replace('{{ '.$search.' }}', $replace, $contents);
-        }
-
-        return $contents;
-    }
-
-    /**
      * Get the full path of generate class
      *
      * @return string
@@ -145,20 +104,5 @@ class MakeServerCommand extends Command
     public function getSourceFilePath()
     {
         return base_path("app/$this->apiNamespace/".Str::upper($this->version).'/Server.php');
-    }
-
-    /**
-     * Build the directory for the class if necessary.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    protected function makeDirectory($path)
-    {
-        if (! $this->files->isDirectory($path)) {
-            $this->files->makeDirectory($path, 0777, true, true);
-        }
-
-        return $path;
     }
 }

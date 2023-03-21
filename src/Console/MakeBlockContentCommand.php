@@ -2,13 +2,15 @@
 
 namespace A17\Twill\API\Console;
 
+use A17\Twill\API\Console\Traits\HasStubs;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem;
 
 class MakeBlockContentCommand extends Command
 {
+    use HasStubs;
+
     /**
      * The name and signature of the console command.
      *
@@ -24,12 +26,6 @@ class MakeBlockContentCommand extends Command
     protected $description = 'Generate a JSON:API block content resource';
 
     /**
-     * Filesystem instance
-     * @var Filesystem
-     */
-    protected $files;
-
-    /**
      * API namespace
      * @var string
      */
@@ -41,6 +37,8 @@ class MakeBlockContentCommand extends Command
      */
     protected $version;
 
+    protected string $relativeStubPath = '/../../stubs/BlockContent.stub';
+
     /**
      * Create a new command instance.
      *
@@ -50,7 +48,7 @@ class MakeBlockContentCommand extends Command
     {
         parent::__construct();
 
-        $this->files = $files;
+        $this->bootHasStubs($files);
     }
 
     /**
@@ -63,11 +61,9 @@ class MakeBlockContentCommand extends Command
         $this->apiNamespace = config('jsonapi.namespace');
         $this->version = $this->argument('version');
         $path = $this->getSourceFilePath();
-        $this->makeDirectory(dirname($path));
-        $contents = $this->getSourceFile();
+        $created = $this->create();
 
-        if (!$this->files->exists($path)) {
-            $this->files->put($path, $contents);
+        if ($created) {
             $this->info("{$path} created\n");
         } else {
             $this->info("{$path} already exits");
@@ -87,15 +83,6 @@ class MakeBlockContentCommand extends Command
         return ucwords($name);
     }
 
-    /**
-     * Return the stub file path
-     *
-     * @return string
-     */
-    public function getStubPath()
-    {
-        return __DIR__ . '/../../stubs/BlockContent.stub';
-    }
 
     /**
      * Map the stub variables present in stub to its value
@@ -112,37 +99,6 @@ class MakeBlockContentCommand extends Command
     }
 
     /**
-     * Get the stub path and the stub variables
-     *
-     * @return bool|mixed|string
-     */
-    public function getSourceFile()
-    {
-        return $this->getStubContents(
-            $this->getStubPath(),
-            $this->getStubVariables()
-        );
-    }
-
-    /**
-     * Replace the stub variables(key) with the desire value
-     *
-     * @param $stub
-     * @param array $stubVariables
-     * @return bool|mixed|string
-     */
-    public function getStubContents($stub, $stubVariables = [])
-    {
-        $contents = file_get_contents($stub);
-
-        foreach ($stubVariables as $search => $replace) {
-            $contents = str_replace('{{ '.$search.' }}', $replace, $contents);
-        }
-
-        return $contents;
-    }
-
-    /**
      * Get the full path of generate class
      *
      * @return string
@@ -150,20 +106,5 @@ class MakeBlockContentCommand extends Command
     public function getSourceFilePath()
     {
         return base_path('app/'. $this->apiNamespace . '/'.Str::upper($this->version)) .'/Blocks/BlockContent' . $this->getBlockName($this->argument('name')) . '.php';
-    }
-
-    /**
-     * Build the directory for the class if necessary.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    protected function makeDirectory($path)
-    {
-        if (! $this->files->isDirectory($path)) {
-            $this->files->makeDirectory($path, 0777, true, true);
-        }
-
-        return $path;
     }
 }
