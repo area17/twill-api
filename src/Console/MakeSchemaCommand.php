@@ -17,7 +17,7 @@ class MakeSchemaCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'twill:make:schema {name} {version=v1}';
+    protected $signature = 'twill-api:schema {name} {version=v1}';
 
     /**
      * The console command description.

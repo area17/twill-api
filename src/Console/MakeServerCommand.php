@@ -16,7 +16,7 @@ class MakeServerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'twill:make:server {version=v1}';
+    protected $signature = 'twill-api:server {version=v1}';
 
     /**
      * The console command description.

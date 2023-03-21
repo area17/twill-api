@@ -16,7 +16,7 @@ class MakeBlockContentCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'twill:make:block-content {name} {version=v1}';
+    protected $signature = 'twill-api:block-content {name} {version=v1}';
 
     /**
      * The console command description.

@@ -34,7 +34,7 @@ php artisan migrate
 Create you base `Server.php` class
 
 ```bash
-php artisan twill:make:server
+php artisan twill-api:server
 ```
 
 Update `config/jsonapi.php` `servers` key with your newly created `Server` class.
@@ -107,10 +107,10 @@ class Page
 
 ## Create a resource schema and API route
 
-To create a basic schema for a new resource (model), use the artisan command `twill:make:schema`. Pass the name of the Twill module as the argument.
+To create a basic schema for a new resource (model), use the artisan command `twill-api:schema`. Pass the name of the Twill module as the argument.
 
 ```bash
-php artisan twill:make:schema snippets
+php artisan twill-api:schema snippets
 ```
 
 This command will create `app/TwillApi/V1/Snippets/SnippetSchema.php`. The command will display a few instructions to register the new schema with the API server and how to declare the endpoint in you `routes/api.php`.
@@ -148,8 +148,8 @@ This package provides these endpoints along with their schema:
 (to do)
 
 ```bash
-php artisan twill:make:block-content text
-php artisan twill:make:block-content my-block-name
+php artisan twill-api:block-content text
+php artisan twill-api:block-content my-block-name
 ```
 
 ### Browser fields (related items)
