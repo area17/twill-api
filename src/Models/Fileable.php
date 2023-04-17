@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\MorphPivot;
 
 class Fileable extends MorphPivot
 {
-    protected $table = 'fileables';
+    protected $table = 'twill_fileables';
 
     public function file()
     {
@@ -17,5 +17,10 @@ class Fileable extends MorphPivot
     public function fileable()
     {
         return $this->morphTo();
+    }
+
+    public function getTable()
+    {
+        return config('twill.fileables_table', 'twill_fileables');
     }
 }

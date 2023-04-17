@@ -13,9 +13,13 @@ class AddIdColumnToRelatedTable extends Migration
      */
     public function up()
     {
-        Schema::table('related', function (Blueprint $table) {
-            $table->increments('id')->first();
-        });
+        $related = config('twill.related_table', 'twill_related');
+
+        if (! Schema::hasColumn($related, 'id')) {
+            Schema::table($related, function (Blueprint $table) {
+                $table->increments('id')->first();
+            });
+        }
     }
 
     /**
@@ -25,8 +29,6 @@ class AddIdColumnToRelatedTable extends Migration
      */
     public function down()
     {
-        Schema::table('related', function (Blueprint $table) {
-            $table->dropColumn('id');
-        });
+        // let's keep the column for Twill 3.x compatibility
     }
 }

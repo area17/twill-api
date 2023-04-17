@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\MorphPivot;
 
 class Mediable extends MorphPivot
 {
-    protected $table = 'mediables';
+    protected $table = 'twill_mediables';
 
     protected $with = ['media', 'mediable'];
 
@@ -39,5 +39,10 @@ class Mediable extends MorphPivot
             );
 
         return $this->mediable->imageAsArray($role, $crop, [], $media);
+    }
+
+    public function getTable()
+    {
+        return config('twill.mediables_table', 'twill_mediables');
     }
 }

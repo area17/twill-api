@@ -14,12 +14,14 @@ class ChangeFeaturedIdColumnInFeaturesTable extends Migration
      */
     public function up()
     {
+        $features = config('twill.features_table', 'twill_features');
+
         if (DB::connection()->getPDO()->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'pgsql') {
-            DB::statement('ALTER TABLE features ALTER featured_id TYPE INT USING featured_id::integer');
+            DB::statement("ALTER TABLE $features ALTER featured_id TYPE INT USING featured_id::integer");
         }
 
         if (DB::connection()->getPDO()->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'mysql') {
-            DB::statement('ALTER TABLE features MODIFY featured_id INT NOT NULL');
+            DB::statement("ALTER TABLE $features MODIFY featured_id INT NOT NULL");
         }
     }
 
@@ -30,12 +32,14 @@ class ChangeFeaturedIdColumnInFeaturesTable extends Migration
      */
     public function down()
     {
+        $features = config('twill.features_table', 'twill_features');
+
         if (DB::connection()->getPDO()->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'pgsql') {
-            DB::statement('ALTER TABLE features ALTER featured_id TYPE VARCHAR(36)');
+            DB::statement("ALTER TABLE $features ALTER featured_id TYPE VARCHAR(36)");
         }
 
         if (DB::connection()->getPDO()->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'mysql') {
-            DB::statement('ALTER TABLE features MODIFY featured_id VARCHAR(36) NOT NULL');
+            DB::statement("ALTER TABLE $features MODIFY featured_id VARCHAR(36) NOT NULL");
         }
     }
 };
