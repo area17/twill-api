@@ -95,13 +95,15 @@ abstract class ModelSchema extends Schema
                         $roles = $value->mediables?->reduce(function ($carry, $model){
                             $carry = $carry ?? [];
                             $carry[$model->role] = $carry[$model->role] ?? [];
-                            $carry[$model->role][$model->crop] = $carry[$model->role][$model->crop] ?? [];
-                            $carry[$model->role][$model->crop][] = (string) $model->id;
+                            $carry[$model->role][$model->media->uuid] = $carry[$model->role][$model->media->uuid] ?? [];
+                            $carry[$model->role][$model->media->uuid][$model->crop] = (string) $model->id;
                             return $carry;
                         });
 
                         return [
-                            'roles' => $roles,
+                            'roles' => collect($roles)->mapWithKeys(function ($role, $key) {
+                                return [$key => collect($role)->values()];
+                            })->toArray(),
                         ];
                     }
                 })
@@ -127,6 +129,8 @@ abstract class ModelSchema extends Schema
             $fields[] = BelongsToMany::make('related-items')->serializeUsing(
                 static fn($relation) => $relation->withMeta(function ($value) {
                     if ($value->relationLoaded('relatedItems')) {
+                        $source = null;
+
                         if (get_class($value) === Block::class) {
                             $source = collect($value->content['browsers'] ?? [])->map(
                                 static fn($browser) => collect($browser)->map(
