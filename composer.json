@@ -9,19 +9,19 @@
   ],
   "require": {
     "php": "^8.0",
-    "area17/twill": "^2.8.2|^3.0|3.x-dev",
-    "illuminate/support": "^9.52",
-    "laravel-json-api/laravel": "^2.6",
+    "area17/twill": "^3.0|3.x-dev",
+    "illuminate/support": "^10.13",
+    "laravel-json-api/laravel": "^3.0",
     "spatie/laravel-package-tools": "^1.11"
   },
   "require-dev": {
     "fakerphp/faker": "^1.15",
     "friendsofphp/php-cs-fixer": "^3.0",
-    "laravel-json-api/testing": "^1.1",
+    "laravel-json-api/testing": "^2.1",
     "mockery/mockery": "^1.4",
-    "nunomaduro/collision": "^6.2",
-    "orchestra/testbench": "^7.22",
-    "phpunit/phpunit": "^9.5",
+    "nunomaduro/collision": "^7.5",
+    "orchestra/testbench": "^8.5",
+    "phpunit/phpunit": "^10.2",
     "symfony/yaml": "^6.0"
   },
   "autoload": {
