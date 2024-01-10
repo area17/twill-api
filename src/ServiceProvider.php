@@ -20,7 +20,6 @@ class ServiceProvider extends PackageServiceProvider
             ->name('twill-api')
             ->hasConfigFile()
             ->hasRoute('api')
-            ->hasMigration('add_id_column_to_related_table')
             ->hasMigration('change_featured_id_column_in_features_table')
             ->hasCommand(MakeSchemaCommand::class)
             ->hasCommand(MakeServerCommand::class)
